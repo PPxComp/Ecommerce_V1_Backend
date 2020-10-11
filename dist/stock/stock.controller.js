@@ -37,21 +37,25 @@ const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 const stock_dto_1 = require("./stock.dto");
+const stock_service_1 = require("./stock.service");
 let StockController = class StockController {
+  constructor(stockService) {
+    this.stockService = stockService;
+  }
   async getAllStock(data) {
-    return data;
+    return this.stockService.getAll(data.catagory, data.start);
   }
   async getStockById(id) {
-    return id;
+    return this.stockService.getStockById(id);
   }
-  async deleteStock() {
-    return 1;
+  async deleteStock(id) {
+    return this.stockService.deleteStockById(id);
   }
-  async addStock() {
-    return 1;
+  async addStock(data) {
+    return this.stockService.createStock(data);
   }
-  async updateStock() {
-    return 1;
+  async updateStock(id, data) {
+    return this.stockService.updateStock(data, id);
   }
 };
 __decorate(
@@ -96,9 +100,10 @@ __decorate(
     swagger_1.ApiHeader({ name: "Authorization" }),
     swagger_1.ApiUnauthorizedResponse({ description: "invalid bearer jwt" }),
     common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
-    common_1.Delete(),
+    common_1.Delete(":id"),
+    __param(0, common_1.Param("id")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise),
   ],
   StockController.prototype,
@@ -116,8 +121,9 @@ __decorate(
     swagger_1.ApiUnauthorizedResponse({ description: "invalid bearer jwt" }),
     common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
     common_1.Post(),
+    __param(0, common_1.Body()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [stock_dto_1.stockInfo]),
     __metadata("design:returntype", Promise),
   ],
   StockController.prototype,
@@ -134,9 +140,11 @@ __decorate(
     swagger_1.ApiHeader({ name: "Authorization" }),
     swagger_1.ApiUnauthorizedResponse({ description: "invalid bearer jwt" }),
     common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
-    common_1.Put(),
+    common_1.Put(":id"),
+    __param(0, common_1.Param("id")),
+    __param(1, common_1.Body()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [String, stock_dto_1.stockInfo]),
     __metadata("design:returntype", Promise),
   ],
   StockController.prototype,
@@ -144,7 +152,11 @@ __decorate(
   null
 );
 StockController = __decorate(
-  [common_1.Controller("stock"), swagger_1.ApiTags("stock")],
+  [
+    common_1.Controller("stock"),
+    swagger_1.ApiTags("stock"),
+    __metadata("design:paramtypes", [stock_service_1.StockService]),
+  ],
   StockController
 );
 exports.StockController = StockController;

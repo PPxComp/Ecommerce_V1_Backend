@@ -1,8 +1,16 @@
-import { getAll } from "./stock.dto";
+import { getAll, stockInfo } from "./stock.dto";
+import { StockService } from "./stock.service";
 export declare class StockController {
-  getAllStock(data: getAll): Promise<getAll>;
-  getStockById(id: string): Promise<string>;
-  deleteStock(): Promise<number>;
-  addStock(): Promise<number>;
-  updateStock(): Promise<number>;
+  private stockService;
+  constructor(stockService: StockService);
+  getAllStock(
+    data: getAll
+  ): Promise<{
+    data: stockInfo[];
+    count: number;
+  }>;
+  getStockById(id: string): Promise<any>;
+  deleteStock(id: string): Promise<any>;
+  addStock(data: stockInfo): Promise<any>;
+  updateStock(id: string, data: stockInfo): Promise<any>;
 }

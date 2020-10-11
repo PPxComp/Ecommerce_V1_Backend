@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   DefaultValuePipe,
   Delete,
@@ -20,18 +21,20 @@ import {
   ApiUnauthorizedResponse,
 } from "@nestjs/swagger";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
-import { getAll } from "./stock.dto";
+import { getAll, stockInfo } from "./stock.dto";
+import { StockService } from "./stock.service";
 
 @Controller("stock")
 @ApiTags("stock")
 export class StockController {
+  constructor(private stockService: StockService) {}
   @ApiOperation({
     summary: "Get all stock",
   })
   @ApiOkResponse({ description: "OK" })
   @Get()
   async getAllStock(@Query() data: getAll) {
-    return data;
+    return this.stockService.getAll(data.catagory, data.start);
   }
 
   @ApiOperation({
@@ -40,7 +43,7 @@ export class StockController {
   @ApiOkResponse({ description: "OK" })
   @Get(":id")
   async getStockById(@Param("id") id: string) {
-    return id;
+    return this.stockService.getStockById(id);
   }
 
   ///////////////////////////////////////////////
@@ -54,9 +57,9 @@ export class StockController {
   @ApiHeader({ name: "Authorization" })
   @ApiUnauthorizedResponse({ description: "invalid bearer jwt" })
   @UseGuards(JwtAuthGuard)
-  @Delete()
-  async deleteStock() {
-    return 1;
+  @Delete(":id")
+  async deleteStock(@Param("id") id: string) {
+    return this.stockService.deleteStockById(id);
   }
 
   @ApiOperation({
@@ -68,8 +71,8 @@ export class StockController {
   @ApiUnauthorizedResponse({ description: "invalid bearer jwt" })
   @UseGuards(JwtAuthGuard)
   @Post()
-  async addStock() {
-    return 1;
+  async addStock(@Body() data: stockInfo) {
+    return this.stockService.createStock(data);
   }
 
   @ApiOperation({
@@ -80,8 +83,8 @@ export class StockController {
   @ApiHeader({ name: "Authorization" })
   @ApiUnauthorizedResponse({ description: "invalid bearer jwt" })
   @UseGuards(JwtAuthGuard)
-  @Put()
-  async updateStock() {
-    return 1;
+  @Put(":id")
+  async updateStock(@Param("id") id: string, @Body() data: stockInfo) {
+    return this.stockService.updateStock(data, id);
   }
 }

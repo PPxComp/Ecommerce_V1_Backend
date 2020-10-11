@@ -1,4 +1,4 @@
-export declare class stock {
+export declare class stockInfo {
   name: String;
   price: number;
   count: number;

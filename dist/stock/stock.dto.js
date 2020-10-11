@@ -25,17 +25,17 @@ var __metadata =
       return Reflect.metadata(k, v);
   };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAll = exports.stock = void 0;
+exports.getAll = exports.stockInfo = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
-class stock {}
+class stockInfo {}
 __decorate(
   [
     swagger_1.ApiProperty(),
     class_validator_1.IsString(),
     __metadata("design:type", String),
   ],
-  stock.prototype,
+  stockInfo.prototype,
   "name",
   void 0
 );
@@ -45,7 +45,7 @@ __decorate(
     class_validator_1.IsInt(),
     __metadata("design:type", Number),
   ],
-  stock.prototype,
+  stockInfo.prototype,
   "price",
   void 0
 );
@@ -55,23 +55,23 @@ __decorate(
     class_validator_1.IsInt(),
     __metadata("design:type", Number),
   ],
-  stock.prototype,
+  stockInfo.prototype,
   "count",
   void 0
 );
 __decorate(
   [swagger_1.ApiProperty(), __metadata("design:type", String)],
-  stock.prototype,
+  stockInfo.prototype,
   "img",
   void 0
 );
 __decorate(
   [swagger_1.ApiProperty(), __metadata("design:type", Array)],
-  stock.prototype,
+  stockInfo.prototype,
   "catagory",
   void 0
 );
-exports.stock = stock;
+exports.stockInfo = stockInfo;
 class getAll {}
 __decorate(
   [swagger_1.ApiPropertyOptional(), __metadata("design:type", String)],

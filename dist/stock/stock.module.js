@@ -21,12 +21,19 @@ var __decorate =
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StockModule = void 0;
 const common_1 = require("@nestjs/common");
+const mongoose_1 = require("@nestjs/mongoose");
+const stock_schema_1 = require("../schema/stock.schema");
 const stock_controller_1 = require("./stock.controller");
 const stock_service_1 = require("./stock.service");
 let StockModule = class StockModule {};
 StockModule = __decorate(
   [
     common_1.Module({
+      imports: [
+        mongoose_1.MongooseModule.forFeature([
+          { name: "stocks", schema: stock_schema_1.StockSchema },
+        ]),
+      ],
       controllers: [stock_controller_1.StockController],
       providers: [stock_service_1.StockService],
     }),

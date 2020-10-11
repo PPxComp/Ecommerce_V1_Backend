@@ -21,7 +21,7 @@ export class stockInfo {
   count: number;
 
   @ApiProperty()
-  img?: String;
+  img: String;
 
   @ApiProperty()
   catagory?: String[];

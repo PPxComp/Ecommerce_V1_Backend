@@ -61,16 +61,26 @@ let StockService = class StockService {
     return { data: result, count };
   }
   async getStockById(id) {
-    return this.stockModel.findById(id);
+    const result = await this.stockModel.findById(id);
+    if (result) return result;
+    throw new common_1.NotFoundException("Not found this stock");
   }
   async createStock(data) {
-    return this.stockModel.create(data);
+    const result = await this.stockModel.create(data);
+    if (result) return result;
+    throw new common_1.NotFoundException("Not found this stock");
   }
   async updateStock(data, id) {
-    return this.stockModel.findByIdAndUpdate(id, data);
+    const result = await this.stockModel.findByIdAndUpdate(id, data, {
+      new: true,
+    });
+    if (result) return result;
+    throw new common_1.NotFoundException("Not found this stock");
   }
   async deleteStockById(id) {
-    return this.stockModel.findByIdAndRemove(id);
+    const result = await this.stockModel.findByIdAndRemove(id);
+    if (result) return result;
+    throw new common_1.NotFoundException("Not found this stock");
   }
 };
 StockService = __decorate(

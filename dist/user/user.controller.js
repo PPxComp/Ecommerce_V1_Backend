@@ -48,10 +48,14 @@ let UserController = class UserController {
 };
 __decorate(
   [
-    common_1.Post(),
     swagger_1.ApiOperation({
       summary: "Register ",
     }),
+    swagger_1.ApiOkResponse({ description: "Registered" }),
+    swagger_1.ApiBadRequestResponse({
+      description: "already have this user !",
+    }),
+    common_1.Post(),
     __param(0, common_1.Body()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [user_dto_1.userRegister]),

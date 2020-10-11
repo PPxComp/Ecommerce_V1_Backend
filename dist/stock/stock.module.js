@@ -23,6 +23,7 @@ exports.StockModule = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const stock_schema_1 = require("../schema/stock.schema");
+const user_module_1 = require("../user/user.module");
 const stock_controller_1 = require("./stock.controller");
 const stock_service_1 = require("./stock.service");
 let StockModule = class StockModule {};
@@ -33,6 +34,7 @@ StockModule = __decorate(
         mongoose_1.MongooseModule.forFeature([
           { name: "stocks", schema: stock_schema_1.StockSchema },
         ]),
+        user_module_1.UserModule,
       ],
       controllers: [stock_controller_1.StockController],
       providers: [stock_service_1.StockService],

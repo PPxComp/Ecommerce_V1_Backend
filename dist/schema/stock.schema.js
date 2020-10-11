@@ -13,7 +13,7 @@ exports.StockSchema = new mongoose_1.Schema(
     name: { required: true, type: String },
     price: { required: true, type: Number },
     count: { required: true, type: Number },
-    img: { required: false, type: String },
+    img: { required: false, type: String, default: null },
     catagory: { required: false, type: [String], default: [] },
   },
   { timestamps: true }

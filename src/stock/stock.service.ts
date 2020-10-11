@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { stockInfo } from "./stock.dto";
@@ -29,18 +29,28 @@ export class StockService {
   }
 
   async getStockById(id: string) {
-    return this.stockModel.findById(id);
+    const result = await this.stockModel.findById(id);
+    if (result) return result;
+    throw new NotFoundException("Not found this stock");
   }
 
   async createStock(data: stockInfo) {
-    return this.stockModel.create(data);
+    const result = await this.stockModel.create(data);
+    if (result) return result;
+    throw new NotFoundException("Not found this stock");
   }
 
   async updateStock(data: stockInfo, id: string) {
-    return this.stockModel.findByIdAndUpdate(id, data);
+    const result = await this.stockModel.findByIdAndUpdate(id, data, {
+      new: true,
+    });
+    if (result) return result;
+    throw new NotFoundException("Not found this stock");
   }
 
   async deleteStockById(id: string) {
-    return this.stockModel.findByIdAndRemove(id);
+    const result = await this.stockModel.findByIdAndRemove(id);
+    if (result) return result;
+    throw new NotFoundException("Not found this stock");
   }
 }

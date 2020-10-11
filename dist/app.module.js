@@ -23,8 +23,6 @@ exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
-const cat_service_1 = require("./cat/cat.service");
-const cat_module_1 = require("./cat/cat.module");
 const config_1 = require("@nestjs/config");
 const auth_module_1 = require("./auth/auth.module");
 const user_module_1 = require("./user/user.module");
@@ -39,7 +37,6 @@ AppModule = __decorate(
           isGlobal: true,
           envFilePath: ".env",
         }),
-        cat_module_1.CatModule,
         auth_module_1.AuthModule,
         user_module_1.UserModule,
         mongoose_1.MongooseModule.forRootAsync({
@@ -51,7 +48,7 @@ AppModule = __decorate(
         stock_module_1.StockModule,
       ],
       controllers: [app_controller_1.AppController],
-      providers: [app_service_1.AppService, cat_service_1.CatService],
+      providers: [app_service_1.AppService],
     }),
   ],
   AppModule

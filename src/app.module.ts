@@ -1,8 +1,6 @@
 import { Module } from "@nestjs/common";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
-import { CatService } from "./cat/cat.service";
-import { CatModule } from "./cat/cat.module";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { AuthModule } from "./auth/auth.module";
 import { UserModule } from "./user/user.module";
@@ -15,7 +13,6 @@ import { StockModule } from "./stock/stock.module";
       isGlobal: true,
       envFilePath: ".env",
     }),
-    CatModule,
     AuthModule,
     UserModule,
     MongooseModule.forRootAsync({
@@ -27,6 +24,6 @@ import { StockModule } from "./stock/stock.module";
     StockModule,
   ],
   controllers: [AppController],
-  providers: [AppService, CatService],
+  providers: [AppService],
 })
 export class AppModule {}

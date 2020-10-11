@@ -37,6 +37,7 @@ const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 const stock_dto_1 = require("./stock.dto");
+const stock_guard_1 = require("./stock.guard");
 const stock_service_1 = require("./stock.service");
 let StockController = class StockController {
   constructor(stockService) {
@@ -80,6 +81,7 @@ __decorate(
       summary: "Get stock by id",
     }),
     swagger_1.ApiOkResponse({ description: "OK" }),
+    common_1.UseGuards(stock_guard_1.IsObjectId),
     common_1.Get(":id"),
     __param(0, common_1.Param("id")),
     __metadata("design:type", Function),
@@ -97,9 +99,10 @@ __decorate(
     }),
     swagger_1.ApiOkResponse({ description: "Deleted" }),
     swagger_1.ApiBearerAuth(),
+    common_1.UseGuards(stock_guard_1.IsAdmin),
     swagger_1.ApiHeader({ name: "Authorization" }),
-    swagger_1.ApiUnauthorizedResponse({ description: "invalid bearer jwt" }),
     common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
+    common_1.UseGuards(stock_guard_1.IsObjectId),
     common_1.Delete(":id"),
     __param(0, common_1.Param("id")),
     __metadata("design:type", Function),
@@ -117,8 +120,8 @@ __decorate(
     }),
     swagger_1.ApiOkResponse({ description: "Added" }),
     swagger_1.ApiBearerAuth(),
+    common_1.UseGuards(stock_guard_1.IsAdmin),
     swagger_1.ApiHeader({ name: "Authorization" }),
-    swagger_1.ApiUnauthorizedResponse({ description: "invalid bearer jwt" }),
     common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
     common_1.Post(),
     __param(0, common_1.Body()),
@@ -138,8 +141,9 @@ __decorate(
     swagger_1.ApiOkResponse({ description: "Updated" }),
     swagger_1.ApiBearerAuth(),
     swagger_1.ApiHeader({ name: "Authorization" }),
-    swagger_1.ApiUnauthorizedResponse({ description: "invalid bearer jwt" }),
+    common_1.UseGuards(stock_guard_1.IsAdmin),
     common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
+    common_1.UseGuards(stock_guard_1.IsObjectId),
     common_1.Put(":id"),
     __param(0, common_1.Param("id")),
     __param(1, common_1.Body()),
@@ -155,6 +159,11 @@ StockController = __decorate(
   [
     common_1.Controller("stock"),
     swagger_1.ApiTags("stock"),
+    swagger_1.ApiUnauthorizedResponse({ description: "invalid bearer jwt" }),
+    swagger_1.ApiBadRequestResponse({
+      description: "User didn't have permission",
+    }),
+    swagger_1.ApiNotFoundResponse({ description: "Not found this stock" }),
     __metadata("design:paramtypes", [stock_service_1.StockService]),
   ],
   StockController

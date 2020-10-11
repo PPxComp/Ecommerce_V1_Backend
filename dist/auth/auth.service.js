@@ -32,10 +32,12 @@ const class_transformer_1 = require("class-transformer");
 const user_service_1 = require("../user/user.service");
 const bcrypt = require("bcrypt");
 const uuid_1 = require("uuid");
+const firebase_service_1 = require("../firebase/firebase.service");
 let AuthService = class AuthService {
-  constructor(jwtService, userService) {
+  constructor(jwtService, userService, firebaseSerive) {
     this.jwtService = jwtService;
     this.userService = userService;
+    this.firebaseSerive = firebaseSerive;
   }
   signJwt(payload) {
     return this.jwtService.sign(class_transformer_1.classToPlain(payload), {
@@ -67,7 +69,10 @@ let AuthService = class AuthService {
     const refreshToken = uuid_1.v4();
     await this.userService.findUserAndUpdateToken(username, refreshToken);
     return {
-      accessToken: jwtToken,
+      webappToken: {
+        accessToken: jwtToken,
+        firebaseToken: await this.firebaseSerive.createToken(username),
+      },
       refreshToken: refreshToken,
     };
   }
@@ -78,6 +83,7 @@ AuthService = __decorate(
     __metadata("design:paramtypes", [
       jwt_1.JwtService,
       user_service_1.UserService,
+      firebase_service_1.FirebaseService,
     ]),
   ],
   AuthService

@@ -19,4 +19,7 @@ export class userLogin {
 export class WebappTokensDTO {
   @ApiProperty()
   accessToken: string;
+
+  @ApiProperty()
+  firebaseToken: string;
 }

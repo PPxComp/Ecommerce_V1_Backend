@@ -23,6 +23,7 @@ exports.jwtSecretFromConfig = exports.AuthModule = void 0;
 const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
 const jwt_1 = require("@nestjs/jwt");
+const firebase_module_1 = require("../firebase/firebase.module");
 const user_module_1 = require("../user/user.module");
 const auth_controller_1 = require("./auth.controller");
 const auth_service_1 = require("./auth.service");
@@ -40,9 +41,10 @@ AuthModule = __decorate(
           inject: [config_1.ConfigService],
         }),
         user_module_1.UserModule,
+        firebase_module_1.FirebaseModule,
       ],
       providers: [auth_service_1.AuthService, jwt_strategy_1.JwtStrategy],
-      exports: [jwt_1.JwtModule],
+      exports: [jwt_1.JwtModule, auth_service_1.AuthService],
     }),
   ],
   AuthModule

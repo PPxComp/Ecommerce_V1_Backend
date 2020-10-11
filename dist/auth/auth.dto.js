@@ -65,5 +65,11 @@ __decorate(
   "accessToken",
   void 0
 );
+__decorate(
+  [swagger_1.ApiProperty(), __metadata("design:type", String)],
+  WebappTokensDTO.prototype,
+  "firebaseToken",
+  void 0
+);
 exports.WebappTokensDTO = WebappTokensDTO;
 //# sourceMappingURL=auth.dto.js.map

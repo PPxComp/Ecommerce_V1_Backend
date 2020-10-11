@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { JwtModule } from "@nestjs/jwt";
+import { FirebaseModule } from "src/firebase/firebase.module";
 import { UserModule } from "src/user/user.module";
 import { AuthController } from "./auth.controller";
 import { AuthService } from "./auth.service";
@@ -16,9 +17,10 @@ import { JwtStrategy } from "./jwt.strategy";
       inject: [ConfigService],
     }),
     UserModule,
+    FirebaseModule,
   ],
   providers: [AuthService, JwtStrategy],
-  exports: [JwtModule],
+  exports: [JwtModule, AuthService],
 })
 export class AuthModule {}
 export const jwtSecretFromConfig = (config: ConfigService) => {

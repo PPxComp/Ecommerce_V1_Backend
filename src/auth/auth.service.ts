@@ -2,14 +2,17 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { classToPlain } from "class-transformer";
 import { UserService } from "src/user/user.service";
-import { JwtPayload, userLogin } from "./auth.dto";
+import { JwtPayload, userLogin, WebappTokensDTO } from "./auth.dto";
 const bcrypt = require("bcrypt");
 import { v4 as uuid4 } from "uuid";
+import { ApiProperty } from "@nestjs/swagger";
+import { FirebaseService } from "src/firebase/firebase.service";
 @Injectable()
 export class AuthService {
   constructor(
     private jwtService: JwtService,
-    private userService: UserService
+    private userService: UserService,
+    private firebaseSerive: FirebaseService
   ) {}
 
   signJwt(payload: JwtPayload): string {
@@ -52,12 +55,16 @@ export class AuthService {
     await this.userService.findUserAndUpdateToken(username, refreshToken);
 
     return {
-      accessToken: jwtToken,
+      webappToken: {
+        accessToken: jwtToken,
+        firebaseToken: await this.firebaseSerive.createToken(username),
+      },
       refreshToken: refreshToken,
     };
   }
 }
 export interface InternalTokenDTO {
-  accessToken: string;
+  webappToken: WebappTokensDTO;
+
   refreshToken: string;
 }

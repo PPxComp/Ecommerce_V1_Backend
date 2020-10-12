@@ -15,6 +15,6 @@ services:
       FIREBASE_SERVICE_ACCOUNT : ${FIREBASE_SERVICE_ACCOUNT}
       FIREBASE_STORAGE_BUCKET_NAME : ${FIREBASE_STORAGE_BUCKET_NAME}
     ports:
-      - ${PORT}:3001
+      - ${PORT}:3000
   mongo:
     image: mongo

@@ -3,7 +3,7 @@ FROM node:12.18-alpine AS build
 WORKDIR /usr/src/app
 
 # Install dependencies
-COPY ["package.json", "yarn.lock", "./"]
+COPY ["firebase_acc.json","package.json", "yarn.lock", "./"]
 RUN yarn
 
 # Build the app
@@ -15,7 +15,7 @@ FROM node:12.18-alpine
 ENV NODE_ENV production
 WORKDIR /usr/src/app
 
-COPY ["package.json", "yarn.lock", "./"]
+COPY ["firebase_acc.json","package.json", "yarn.lock", "./"]
 RUN yarn
 
 COPY --from=build /usr/src/app/dist ./dist

@@ -45,7 +45,7 @@ export class AuthService {
     throw new NotFoundException("invalid username or password");
   }
 
-  async generateTokensForUser(username: string): Promise<InternalTokenDTO> {
+  async generateTokensForUser(username: string): Promise<WebappTokensDTO> {
     const jwtToken = this.signJwt({
       username,
     });
@@ -55,16 +55,14 @@ export class AuthService {
     await this.userService.findUserAndUpdateToken(username, refreshToken);
 
     return {
-      webappToken: {
-        accessToken: jwtToken,
-        firebaseToken: await this.firebaseSerive.createToken(username),
-      },
+      accessToken: jwtToken,
+
       refreshToken: refreshToken,
     };
   }
 }
 export interface InternalTokenDTO {
-  webappToken: WebappTokensDTO;
+  accessToken: string;
 
   refreshToken: string;
 }

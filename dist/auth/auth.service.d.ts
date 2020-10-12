@@ -14,9 +14,9 @@ export declare class AuthService {
   signJwt(payload: JwtPayload): string;
   userFromRefreshToken(refreshToken: string): Promise<string>;
   login(data: userLogin): Promise<import("../user/user.dto").userInfo>;
-  generateTokensForUser(username: string): Promise<InternalTokenDTO>;
+  generateTokensForUser(username: string): Promise<WebappTokensDTO>;
 }
 export interface InternalTokenDTO {
-  webappToken: WebappTokensDTO;
+  accessToken: string;
   refreshToken: string;
 }

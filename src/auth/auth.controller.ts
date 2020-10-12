@@ -81,13 +81,10 @@ export class AuthController {
   async refreshToken(@Res() res: Response, @Req() req: Request) {
     const user = await this.getUserFromRefreshCookie(req);
 
-    const {
-      webappToken,
-      refreshToken,
-    } = await this.authService.generateTokensForUser(user);
+    const result = await this.authService.generateTokensForUser(user);
 
-    this.setRefreshCookie(res, refreshToken);
-    res.json(webappToken as WebappTokensDTO);
+    this.setRefreshCookie(res, result.refreshToken);
+    res.json(result);
   }
 
   @Post("logout")

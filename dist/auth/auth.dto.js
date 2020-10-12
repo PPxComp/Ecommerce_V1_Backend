@@ -68,7 +68,7 @@ __decorate(
 __decorate(
   [swagger_1.ApiProperty(), __metadata("design:type", String)],
   WebappTokensDTO.prototype,
-  "firebaseToken",
+  "refreshToken",
   void 0
 );
 exports.WebappTokensDTO = WebappTokensDTO;

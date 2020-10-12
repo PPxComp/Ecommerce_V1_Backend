@@ -78,12 +78,9 @@ let AuthController = class AuthController {
   }
   async refreshToken(res, req) {
     const user = await this.getUserFromRefreshCookie(req);
-    const {
-      webappToken,
-      refreshToken,
-    } = await this.authService.generateTokensForUser(user);
-    this.setRefreshCookie(res, refreshToken);
-    res.json(webappToken);
+    const result = await this.authService.generateTokensForUser(user);
+    this.setRefreshCookie(res, result.refreshToken);
+    res.json(result);
   }
   async clearRefreshToken(res, req) {
     try {

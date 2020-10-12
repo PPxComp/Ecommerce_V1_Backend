@@ -7,5 +7,5 @@ export declare class userLogin {
 }
 export declare class WebappTokensDTO {
   accessToken: string;
-  firebaseToken: string;
+  refreshToken: string;
 }

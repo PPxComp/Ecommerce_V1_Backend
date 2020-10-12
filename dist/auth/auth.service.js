@@ -69,10 +69,7 @@ let AuthService = class AuthService {
     const refreshToken = uuid_1.v4();
     await this.userService.findUserAndUpdateToken(username, refreshToken);
     return {
-      webappToken: {
-        accessToken: jwtToken,
-        firebaseToken: await this.firebaseSerive.createToken(username),
-      },
+      accessToken: jwtToken,
       refreshToken: refreshToken,
     };
   }

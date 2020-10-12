@@ -27,8 +27,8 @@ var __metadata =
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FirebaseService = void 0;
 const common_1 = require("@nestjs/common");
-const config_1 = require("@nestjs/config");
 const admin = require("firebase-admin");
+const config_1 = require("@nestjs/config");
 function parseServiceAccount(jsonOrBase64) {
   try {
     return JSON.parse(jsonOrBase64);
@@ -42,8 +42,10 @@ function parseServiceAccount(jsonOrBase64) {
 }
 let FirebaseService = class FirebaseService {
   constructor(configService) {
-    const serviceAccount = configService.get("FIREBASE_SERVICE_ACCOUNT");
+    const serviceAccount = configService.get("firebase.serviceAccount");
     const storageBucketName = configService.get("firebase.storageBucketName");
+    console.log("Service account path  : ", serviceAccount);
+    console.log("storageBucketName  : ", storageBucketName);
     admin.initializeApp({
       credential: admin.credential.cert(serviceAccount),
       storageBucket: `${storageBucketName}.appspot.com`,

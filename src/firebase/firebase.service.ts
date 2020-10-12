@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
-import { ConfigService } from "@nestjs/config";
 import * as admin from "firebase-admin";
 import { Bucket, File } from "@google-cloud/storage";
+import { ConfigService } from "@nestjs/config";
 
 function parseServiceAccount(jsonOrBase64: string): any {
   try {
@@ -20,13 +20,13 @@ export class FirebaseService {
   bucket: Bucket;
 
   constructor(configService: ConfigService) {
-    const serviceAccount = configService.get<string>(
-      "FIREBASE_SERVICE_ACCOUNT"
-    ); //path for json file
-
+    const serviceAccount = configService.get<string>("firebase.serviceAccount"); //path for json file
     const storageBucketName = configService.get<string>(
       "firebase.storageBucketName"
     );
+
+    console.log("Service account path  : ", serviceAccount);
+    console.log("storageBucketName  : ", storageBucketName);
     admin.initializeApp({
       credential: admin.credential.cert(serviceAccount),
       storageBucket: `${storageBucketName}.appspot.com`,

@@ -7,11 +7,13 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      MONGO_URI: ${MONGO_URI}
+      MONGO_URI: ${MONGO_URI_DOCKER}
       JWT_SECRET: ${JWT_SECRET}
       SECURE_COOKIE: ${SECURE_COOKIE}
       development: ${development}
       PORT: ${PORT}
+      FIREBASE_SERVICE_ACCOUNT : ${FIREBASE_SERVICE_ACCOUNT}
+      FIREBASE_STORAGE_BUCKET_NAME : ${FIREBASE_STORAGE_BUCKET_NAME}
     ports:
       - ${PORT}:3000
   mongo:

@@ -1,5 +1,5 @@
-import { ConfigService } from "@nestjs/config";
 import { Bucket } from "@google-cloud/storage";
+import { ConfigService } from "@nestjs/config";
 export declare class FirebaseService {
   bucket: Bucket;
   constructor(configService: ConfigService);

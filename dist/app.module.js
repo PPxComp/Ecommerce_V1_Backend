@@ -28,6 +28,7 @@ const auth_module_1 = require("./auth/auth.module");
 const user_module_1 = require("./user/user.module");
 const mongoose_1 = require("@nestjs/mongoose");
 const stock_module_1 = require("./stock/stock.module");
+const configuration_1 = require("./config/configuration");
 let AppModule = class AppModule {};
 AppModule = __decorate(
   [
@@ -35,13 +36,13 @@ AppModule = __decorate(
       imports: [
         config_1.ConfigModule.forRoot({
           isGlobal: true,
-          envFilePath: ".env",
+          load: [configuration_1.default],
         }),
         auth_module_1.AuthModule,
         user_module_1.UserModule,
         mongoose_1.MongooseModule.forRootAsync({
           useFactory: async (configService) => ({
-            uri: configService.get("MONGO_URI"),
+            uri: configService.get("mongo.uri"),
           }),
           inject: [config_1.ConfigService],
         }),

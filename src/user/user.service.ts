@@ -32,7 +32,15 @@ export class UserService {
     return this.userModel.findOneAndUpdate(
       { username },
       { refreshToken },
-      { upsert: true }
+      { upsert: true, new: true }
+    );
+  }
+
+  async giveAdmin(username: string): Promise<userInfo> {
+    return this.userModel.findOneAndUpdate(
+      { username },
+      { isAdmin: true },
+      { upsert: true, new: true }
     );
   }
 

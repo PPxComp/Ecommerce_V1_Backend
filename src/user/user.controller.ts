@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Req } from "@nestjs/common";
 import {
   ApiBadRequestResponse,
   ApiOkResponse,
@@ -21,6 +21,16 @@ export class UserController {
   @Post()
   async register(@Body() data: userRegister) {
     const result = await this.userService.resister(data);
+    return result;
+  }
+
+  @ApiOperation({
+    summary: "Give admin ",
+  })
+  @ApiOkResponse({ description: "Add permission !" })
+  @Get(":username")
+  async giveAdmin(@Param("username") username: string) {
+    const result = await this.userService.giveAdmin(username);
     return result;
   }
 }

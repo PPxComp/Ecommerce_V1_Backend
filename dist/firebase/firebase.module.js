@@ -22,12 +22,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.FirebaseModule = void 0;
 const common_1 = require("@nestjs/common");
 const firebase_service_1 = require("./firebase.service");
+const firebase_controller_1 = require("./firebase.controller");
+const stock_module_1 = require("../stock/stock.module");
+const user_module_1 = require("../user/user.module");
 let FirebaseModule = class FirebaseModule {};
 FirebaseModule = __decorate(
   [
     common_1.Module({
+      imports: [user_module_1.UserModule],
       providers: [firebase_service_1.FirebaseService],
       exports: [firebase_service_1.FirebaseService],
+      controllers: [firebase_controller_1.FirebaseController],
     }),
   ],
   FirebaseModule

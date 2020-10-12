@@ -45,6 +45,10 @@ let UserController = class UserController {
     const result = await this.userService.resister(data);
     return result;
   }
+  async giveAdmin(username) {
+    const result = await this.userService.giveAdmin(username);
+    return result;
+  }
 };
 __decorate(
   [
@@ -63,6 +67,22 @@ __decorate(
   ],
   UserController.prototype,
   "register",
+  null
+);
+__decorate(
+  [
+    swagger_1.ApiOperation({
+      summary: "Give admin ",
+    }),
+    swagger_1.ApiOkResponse({ description: "Add permission !" }),
+    common_1.Get(":username"),
+    __param(0, common_1.Param("username")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise),
+  ],
+  UserController.prototype,
+  "giveAdmin",
   null
 );
 UserController = __decorate(

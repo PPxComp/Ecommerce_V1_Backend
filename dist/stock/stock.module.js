@@ -38,6 +38,7 @@ StockModule = __decorate(
       ],
       controllers: [stock_controller_1.StockController],
       providers: [stock_service_1.StockService],
+      exports: [stock_service_1.StockService],
     }),
   ],
   StockModule

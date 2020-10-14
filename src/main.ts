@@ -5,7 +5,6 @@ import { ConfigService } from "@nestjs/config";
 import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
 import * as cors from "cors";
 import * as cookieParser from "cookie-parser";
-import { NestExpressApplication } from "@nestjs/platform-express/interfaces/nest-express-application.interface";
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
@@ -26,7 +25,17 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup(development ? "api/swagger" : "hidden", app, document);
-  app.use(cors({}));
+  app.use(
+    cors({
+      origin: [
+        "http://localhost:9000",
+        "http://localhost:3000",
+        `http://localhost:${process.env.FRONT_PORT}`,
+        "http://localhost",
+      ],
+      credentials: true,
+    })
+  );
 
   app.use(cookieParser());
   console.log("Server listening on port :", process.env.PORT);

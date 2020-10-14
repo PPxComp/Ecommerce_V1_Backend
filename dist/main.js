@@ -28,7 +28,17 @@ async function bootstrap() {
     app,
     document
   );
-  app.use(cors({}));
+  app.use(
+    cors({
+      origin: [
+        "http://localhost:9000",
+        "http://localhost:3000",
+        `http://localhost:${process.env.FRONT_PORT}`,
+        "http://localhost",
+      ],
+      credentials: true,
+    })
+  );
   app.use(cookieParser());
   console.log("Server listening on port :", process.env.PORT);
   await app.listen(process.env.PORT);

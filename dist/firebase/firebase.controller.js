@@ -52,6 +52,10 @@ __decorate(
       summary: "Get Admin firebase token",
     }),
     swagger_1.ApiOkResponse({ description: "OK" }),
+    swagger_1.ApiUnauthorizedResponse({ description: "invalid bearer jwt" }),
+    swagger_1.ApiBadRequestResponse({
+      description: "User didn't have permission",
+    }),
     common_1.UseGuards(stock_guard_1.IsAdmin),
     common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
     common_1.Get(),

@@ -14,7 +14,8 @@ services:
       PORT: ${PORT}
       FIREBASE_SERVICE_ACCOUNT : ${FIREBASE_SERVICE_ACCOUNT}
       FIREBASE_STORAGE_BUCKET_NAME : ${FIREBASE_STORAGE_BUCKET_NAME}
+      DOCKER_PORT : ${DOCKER_PORT}
     ports:
-      - '9000:${PORT}'
+      - '${DOCKER_PORT}:${PORT}'
   mongo:
     image: mongo

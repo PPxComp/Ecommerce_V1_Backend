@@ -5,6 +5,7 @@ const core_1 = require("@nestjs/core");
 const app_module_1 = require("./app.module");
 const config_1 = require("@nestjs/config");
 const swagger_1 = require("@nestjs/swagger");
+const cors = require("cors");
 const cookieParser = require("cookie-parser");
 async function bootstrap() {
   const app = await core_1.NestFactory.create(app_module_1.AppModule);
@@ -26,6 +27,17 @@ async function bootstrap() {
     development ? "api/swagger" : "hidden",
     app,
     document
+  );
+  app.use(
+    cors({
+      origin: [
+        `http://localhost:${process.env.FRONT_PORT}`,
+        "https://localhost",
+        "https://localhost:3000",
+        "https://localhost:9000",
+      ],
+      credentials: true,
+    })
   );
   app.use(cookieParser());
   console.log("Server listening on port :", process.env.PORT);

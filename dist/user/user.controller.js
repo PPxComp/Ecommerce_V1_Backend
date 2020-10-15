@@ -35,6 +35,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
+const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 const user_dto_1 = require("./user.dto");
 const user_service_1 = require("./user.service");
 let UserController = class UserController {
@@ -44,6 +45,12 @@ let UserController = class UserController {
   async register(data) {
     const result = await this.userService.resister(data);
     return result;
+  }
+  async getUserInfo(name) {
+    const { username, isAdmin } = await this.userService.findUserByUsername(
+      name
+    );
+    return { username, isAdmin };
   }
   async giveAdmin(username) {
     const result = await this.userService.giveAdmin(username);
@@ -71,11 +78,27 @@ __decorate(
 );
 __decorate(
   [
+    common_1.Get(":username"),
+    swagger_1.ApiOperation({
+      summary: "Get MyInfo",
+    }),
+    swagger_1.ApiOkResponse({ description: "OK" }),
+    __param(0, common_1.Param("username")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise),
+  ],
+  UserController.prototype,
+  "getUserInfo",
+  null
+);
+__decorate(
+  [
     swagger_1.ApiOperation({
       summary: "Give admin ",
     }),
     swagger_1.ApiOkResponse({ description: "Add permission !" }),
-    common_1.Get(":username"),
+    common_1.Post(":username"),
     __param(0, common_1.Param("username")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

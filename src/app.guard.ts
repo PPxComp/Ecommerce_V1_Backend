@@ -7,10 +7,9 @@ import {
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { isValidObjectId } from "mongoose";
-import { Observable } from "rxjs";
+
 import { userInfo } from "src/user/user.dto";
 import { UserService } from "src/user/user.service";
-import { StockService } from "./stock.service";
 
 @Injectable()
 export class IsAdmin implements CanActivate {

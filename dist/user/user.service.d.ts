@@ -11,7 +11,4 @@ export declare class UserService {
   ): Promise<userInfo>;
   giveAdmin(username: string): Promise<userInfo>;
   findUserByRefreshToken(refreshToken: string): Promise<userInfo>;
-  countUser(
-    filterMode: "ALL" | "HASINFO" | "HASGROUPCONFIRMED"
-  ): Promise<number>;
 }

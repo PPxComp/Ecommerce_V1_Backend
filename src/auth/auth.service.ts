@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import {
+  forwardRef,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { classToPlain } from "class-transformer";
 import { UserService } from "src/user/user.service";
@@ -10,9 +15,8 @@ import { FirebaseService } from "src/firebase/firebase.service";
 @Injectable()
 export class AuthService {
   constructor(
-    private jwtService: JwtService,
-    private userService: UserService,
-    private firebaseSerive: FirebaseService
+    @Inject(forwardRef(() => UserService)) private userService: UserService,
+    private jwtService: JwtService
   ) {}
 
   signJwt(payload: JwtPayload): string {

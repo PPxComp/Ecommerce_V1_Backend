@@ -36,7 +36,7 @@ exports.FirebaseController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
-const stock_guard_1 = require("../stock/stock.guard");
+const app_guard_1 = require("../app.guard");
 const firebase_service_1 = require("./firebase.service");
 let FirebaseController = class FirebaseController {
   constructor(firebaseService) {
@@ -44,6 +44,9 @@ let FirebaseController = class FirebaseController {
   }
   async getToken(req) {
     return this.firebaseService.createToken(req.user.username);
+  }
+  async CheckImage(id) {
+    return this.firebaseService.hasStockPicture(id);
   }
 };
 __decorate(
@@ -56,7 +59,7 @@ __decorate(
     swagger_1.ApiBadRequestResponse({
       description: "User didn't have permission",
     }),
-    common_1.UseGuards(stock_guard_1.IsAdmin),
+    common_1.UseGuards(app_guard_1.IsAdmin),
     common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
     common_1.Get(),
     __param(0, common_1.Req()),
@@ -68,10 +71,27 @@ __decorate(
   "getToken",
   null
 );
+__decorate(
+  [
+    swagger_1.ApiOperation({
+      summary: "Check is image exist",
+    }),
+    swagger_1.ApiOkResponse({ description: "OK" }),
+    common_1.UseGuards(app_guard_1.IsObjectId),
+    common_1.Get(":id"),
+    __param(0, common_1.Param("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise),
+  ],
+  FirebaseController.prototype,
+  "CheckImage",
+  null
+);
 FirebaseController = __decorate(
   [
     common_1.Controller("firebase"),
-    swagger_1.ApiTags("firebase token"),
+    swagger_1.ApiTags("firebase"),
     __metadata("design:paramtypes", [firebase_service_1.FirebaseService]),
   ],
   FirebaseController

@@ -66,14 +66,11 @@ let UserService = class UserService {
     return this.userModel.findOneAndUpdate(
       { username },
       { isAdmin: true },
-      { upsert: true, new: true }
+      { new: true }
     );
   }
   async findUserByRefreshToken(refreshToken) {
     return this.userModel.findOne({ refreshToken });
-  }
-  async countUser(filterMode) {
-    return 5;
   }
 };
 UserService = __decorate(

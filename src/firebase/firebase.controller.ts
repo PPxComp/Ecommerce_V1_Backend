@@ -1,4 +1,4 @@
-import { Controller, Get, Req, UseGuards } from "@nestjs/common";
+import { Controller, Get, Param, Req, UseGuards } from "@nestjs/common";
 import {
   ApiBadRequestResponse,
   ApiOkResponse,
@@ -7,11 +7,11 @@ import {
   ApiUnauthorizedResponse,
 } from "@nestjs/swagger";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
-import { IsAdmin } from "src/stock/stock.guard";
+import { IsAdmin, IsObjectId } from "src/app.guard";
 import { FirebaseService } from "./firebase.service";
 
 @Controller("firebase")
-@ApiTags("firebase token")
+@ApiTags("firebase")
 export class FirebaseController {
   constructor(private firebaseService: FirebaseService) {}
 
@@ -26,5 +26,15 @@ export class FirebaseController {
   @Get()
   async getToken(@Req() req) {
     return this.firebaseService.createToken(req.user.username);
+  }
+
+  @ApiOperation({
+    summary: "Check is image exist",
+  })
+  @ApiOkResponse({ description: "OK" })
+  @UseGuards(IsObjectId)
+  @Get(":id")
+  async CheckImage(@Param("id") id: string) {
+    return this.firebaseService.hasStockPicture(id);
   }
 }

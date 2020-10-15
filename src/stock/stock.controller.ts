@@ -22,10 +22,10 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from "@nestjs/swagger";
-import { IsObject } from "class-validator";
+import { IsAdmin, IsObjectId } from "src/app.guard";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { getAll, stockInfo } from "./stock.dto";
-import { IsAdmin, IsObjectId } from "./stock.guard";
+
 import { StockService } from "./stock.service";
 
 @Controller("stock")

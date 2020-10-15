@@ -22,6 +22,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.StockModule = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
+const auth_module_1 = require("../auth/auth.module");
 const stock_schema_1 = require("../schema/stock.schema");
 const user_module_1 = require("../user/user.module");
 const stock_controller_1 = require("./stock.controller");

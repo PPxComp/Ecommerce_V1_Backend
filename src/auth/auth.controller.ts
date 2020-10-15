@@ -32,7 +32,7 @@ export class AuthController {
   @ApiOperation({
     summary: "Login Exchange ticket",
   })
-  @ApiOkResponse({ type: JwtPayload, description: "OK" })
+  @ApiOkResponse({ type: WebappTokensDTO, description: "OK" })
   @Post("login")
   async getJwt(@Body() data: userLogin, @Res() res: Response) {
     const user: userInfo = await this.authService.login(data);

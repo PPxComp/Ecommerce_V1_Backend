@@ -4,5 +4,11 @@ export declare class UserController {
   private userService;
   constructor(userService: UserService);
   register(data: userRegister): Promise<any>;
+  getUserInfo(
+    name: string
+  ): Promise<{
+    username: string;
+    isAdmin: boolean;
+  }>;
   giveAdmin(username: string): Promise<import("./user.dto").userInfo>;
 }

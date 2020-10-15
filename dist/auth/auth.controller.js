@@ -101,7 +101,10 @@ __decorate(
     swagger_1.ApiOperation({
       summary: "Login Exchange ticket",
     }),
-    swagger_1.ApiOkResponse({ type: auth_dto_1.JwtPayload, description: "OK" }),
+    swagger_1.ApiOkResponse({
+      type: auth_dto_1.WebappTokensDTO,
+      description: "OK",
+    }),
     common_1.Post("login"),
     __param(0, common_1.Body()),
     __param(1, common_1.Res()),

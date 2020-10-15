@@ -24,6 +24,13 @@ var __metadata =
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
       return Reflect.metadata(k, v);
   };
+var __param =
+  (this && this.__param) ||
+  function (paramIndex, decorator) {
+    return function (target, key) {
+      decorator(target, key, paramIndex);
+    };
+  };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
@@ -34,10 +41,9 @@ const bcrypt = require("bcrypt");
 const uuid_1 = require("uuid");
 const firebase_service_1 = require("../firebase/firebase.service");
 let AuthService = class AuthService {
-  constructor(jwtService, userService, firebaseSerive) {
-    this.jwtService = jwtService;
+  constructor(userService, jwtService) {
     this.userService = userService;
-    this.firebaseSerive = firebaseSerive;
+    this.jwtService = jwtService;
   }
   signJwt(payload) {
     return this.jwtService.sign(class_transformer_1.classToPlain(payload), {
@@ -77,10 +83,13 @@ let AuthService = class AuthService {
 AuthService = __decorate(
   [
     common_1.Injectable(),
+    __param(
+      0,
+      common_1.Inject(common_1.forwardRef(() => user_service_1.UserService))
+    ),
     __metadata("design:paramtypes", [
-      jwt_1.JwtService,
       user_service_1.UserService,
-      firebase_service_1.FirebaseService,
+      jwt_1.JwtService,
     ]),
   ],
   AuthService

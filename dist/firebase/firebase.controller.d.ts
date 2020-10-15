@@ -3,4 +3,5 @@ export declare class FirebaseController {
   private firebaseService;
   constructor(firebaseService: FirebaseService);
   getToken(req: any): Promise<string>;
+  CheckImage(id: string): Promise<boolean>;
 }

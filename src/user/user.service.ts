@@ -40,16 +40,11 @@ export class UserService {
     return this.userModel.findOneAndUpdate(
       { username },
       { isAdmin: true },
-      { upsert: true, new: true }
+      { new: true }
     );
   }
 
   async findUserByRefreshToken(refreshToken: string): Promise<userInfo> {
     return this.userModel.findOne({ refreshToken });
-  }
-  async countUser(
-    filterMode: "ALL" | "HASINFO" | "HASGROUPCONFIRMED"
-  ): Promise<number> {
-    return 5;
   }
 }

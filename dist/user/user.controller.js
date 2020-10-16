@@ -78,9 +78,9 @@ __decorate(
 );
 __decorate(
   [
-    common_1.Get(":username"),
+    common_1.Get("/info/:username"),
     swagger_1.ApiOperation({
-      summary: "Get MyInfo",
+      summary: "Get User Info",
     }),
     swagger_1.ApiOkResponse({ description: "OK" }),
     __param(0, common_1.Param("username")),
@@ -97,8 +97,8 @@ __decorate(
     swagger_1.ApiOperation({
       summary: "Give admin ",
     }),
-    swagger_1.ApiOkResponse({ description: "Add permission !" }),
-    common_1.Post(":username"),
+    swagger_1.ApiCreatedResponse({ description: "Add permission !" }),
+    common_1.Put(":username"),
     __param(0, common_1.Param("username")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

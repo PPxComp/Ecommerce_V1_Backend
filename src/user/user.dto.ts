@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsString } from "class-validator";
-import { isValidObjectId } from "mongoose";
+import { Mongoose } from "mongoose";
 
 export class userRegister {
   @ApiProperty()

@@ -4,12 +4,14 @@ import {
   Get,
   Param,
   Post,
+  Put,
   Req,
   UseGuards,
 } from "@nestjs/common";
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
+  ApiCreatedResponse,
   ApiHeader,
   ApiOkResponse,
   ApiOperation,
@@ -35,9 +37,9 @@ export class UserController {
     return result;
   }
 
-  @Get(":username")
+  @Get("/info/:username")
   @ApiOperation({
-    summary: "Get MyInfo",
+    summary: "Get User Info",
   })
   @ApiOkResponse({ description: "OK" })
   async getUserInfo(@Param("username") name: string) {
@@ -50,8 +52,8 @@ export class UserController {
   @ApiOperation({
     summary: "Give admin ",
   })
-  @ApiOkResponse({ description: "Add permission !" })
-  @Post(":username")
+  @ApiCreatedResponse({ description: "Add permission !" })
+  @Put(":username")
   async giveAdmin(@Param("username") username: string) {
     const result = await this.userService.giveAdmin(username);
     return result;

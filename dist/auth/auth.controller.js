@@ -39,6 +39,7 @@ const swagger_1 = require("@nestjs/swagger");
 const user_dto_1 = require("../user/user.dto");
 const auth_dto_1 = require("./auth.dto");
 const auth_service_1 = require("./auth.service");
+const user_service_1 = require("../user/user.service");
 const REFRESH_TOKEN_COOKIE_NAME = "cookie_for_refresh";
 let AuthController = class AuthController {
   constructor(authService, configService) {

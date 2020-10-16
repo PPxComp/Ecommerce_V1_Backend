@@ -28,6 +28,7 @@ const auth_module_1 = require("./auth/auth.module");
 const user_module_1 = require("./user/user.module");
 const mongoose_1 = require("@nestjs/mongoose");
 const stock_module_1 = require("./stock/stock.module");
+const me_module_1 = require("./me/me.module");
 const configuration_1 = require("./config/configuration");
 let AppModule = class AppModule {};
 AppModule = __decorate(
@@ -47,6 +48,7 @@ AppModule = __decorate(
           inject: [config_1.ConfigService],
         }),
         stock_module_1.StockModule,
+        me_module_1.MeModule,
       ],
       controllers: [app_controller_1.AppController],
       providers: [app_service_1.AppService],

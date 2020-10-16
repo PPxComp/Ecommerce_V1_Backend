@@ -1,11 +1,13 @@
 import {
   Body,
   Controller,
+  Get,
   HttpException,
   Post,
   Req,
   Res,
   UnauthorizedException,
+  UseGuards,
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import {
@@ -20,6 +22,8 @@ import { userInfo, userRegister } from "src/user/user.dto";
 import { JwtPayload, userLogin, WebappTokensDTO } from "./auth.dto";
 import { AuthService, InternalTokenDTO } from "./auth.service";
 import { Response, Request, CookieOptions } from "express";
+import { JwtAuthGuard } from "./jwt-auth.guard";
+import { UserService } from "src/user/user.service";
 const REFRESH_TOKEN_COOKIE_NAME = "cookie_for_refresh";
 @ApiTags("auth")
 @Controller("auth")

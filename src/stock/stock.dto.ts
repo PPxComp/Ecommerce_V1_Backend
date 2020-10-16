@@ -39,7 +39,7 @@ export class getAll {
 
 export class getStockDto {
   @ApiProperty()
-  data: stockInfo[];
+  data: number;
 
   @ApiProperty()
   count: number;

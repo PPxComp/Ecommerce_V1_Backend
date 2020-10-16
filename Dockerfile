@@ -1,24 +1,19 @@
-FROM node:12.18-alpine AS build
-
-WORKDIR /usr/src/app
-
-# Install dependencies
-COPY ["firebase_acc.json","package.json", "yarn.lock", "./"]
-RUN yarn
-
-# Build the app
-COPY . .
-RUN yarn build
-
 FROM node:12.18-alpine
 
-ENV NODE_ENV production
+# Create app directory
 WORKDIR /usr/src/app
 
-COPY ["firebase_acc.json","package.json", "yarn.lock", "./"]
-RUN yarn
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package*.json ./
 
-COPY --from=build /usr/src/app/dist ./dist
+RUN yarn
+# If you are building your code for production
+# RUN npm ci --only=production
+
+# Bundle app source
+COPY . .
 
 EXPOSE 3000
-CMD yarn start:prod
+CMD [ "yarn","start:dev" ]

@@ -10,6 +10,6 @@ export declare class getAll {
   start: number;
 }
 export declare class getStockDto {
-  data: stockInfo[];
+  data: number;
   count: number;
 }

@@ -9,8 +9,8 @@ export declare class StockController {
     data: stockInfo[];
     count: number;
   }>;
-  getStockById(id: string): Promise<any>;
-  deleteStock(id: string): Promise<any>;
+  getStockById(id: string): Promise<stockInfo>;
+  deleteStock(id: string): Promise<stockInfo>;
   addStock(data: stockInfo): Promise<any>;
   updateStock(id: string, data: stockInfo): Promise<any>;
 }

@@ -25,7 +25,7 @@ var __metadata =
       return Reflect.metadata(k, v);
   };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAll = exports.stockInfo = void 0;
+exports.getStockDto = exports.getAll = exports.stockInfo = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 class stockInfo {}
@@ -90,4 +90,18 @@ __decorate(
   void 0
 );
 exports.getAll = getAll;
+class getStockDto {}
+__decorate(
+  [swagger_1.ApiProperty(), __metadata("design:type", Array)],
+  getStockDto.prototype,
+  "data",
+  void 0
+);
+__decorate(
+  [swagger_1.ApiProperty(), __metadata("design:type", Number)],
+  getStockDto.prototype,
+  "count",
+  void 0
+);
+exports.getStockDto = getStockDto;
 //# sourceMappingURL=stock.dto.js.map

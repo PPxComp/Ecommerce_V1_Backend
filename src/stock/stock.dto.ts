@@ -1,3 +1,4 @@
+import { Prop } from "@nestjs/mongoose";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import {
   IsEmail,
@@ -34,4 +35,12 @@ export class getAll {
   @ApiProperty()
   @IsNotEmpty()
   start: number;
+}
+
+export class getStockDto {
+  @ApiProperty()
+  data: stockInfo[];
+
+  @ApiProperty()
+  count: number;
 }

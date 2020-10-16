@@ -61,11 +61,14 @@ let StockController = class StockController {
 };
 __decorate(
   [
+    common_1.Get(),
     swagger_1.ApiOperation({
       summary: "Get all stock",
     }),
-    swagger_1.ApiOkResponse({ description: "OK" }),
-    common_1.Get(),
+    swagger_1.ApiOkResponse({
+      description: "OK",
+      type: stock_dto_1.getStockDto,
+    }),
     __param(0, common_1.Query()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [stock_dto_1.getAll]),
@@ -77,12 +80,12 @@ __decorate(
 );
 __decorate(
   [
+    common_1.Get(":id"),
     swagger_1.ApiOperation({
       summary: "Get stock by id",
     }),
-    swagger_1.ApiOkResponse({ description: "OK" }),
+    swagger_1.ApiOkResponse({ description: "OK", type: stock_dto_1.stockInfo }),
     common_1.UseGuards(app_guard_1.IsObjectId),
-    common_1.Get(":id"),
     __param(0, common_1.Param("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -94,16 +97,16 @@ __decorate(
 );
 __decorate(
   [
+    common_1.Delete(":id"),
     swagger_1.ApiOperation({
       summary: "delete stock",
     }),
     swagger_1.ApiOkResponse({ description: "Deleted" }),
     swagger_1.ApiBearerAuth(),
+    common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
     common_1.UseGuards(app_guard_1.IsAdmin),
     swagger_1.ApiHeader({ name: "Authorization" }),
-    common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
     common_1.UseGuards(app_guard_1.IsObjectId),
-    common_1.Delete(":id"),
     __param(0, common_1.Param("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -115,15 +118,15 @@ __decorate(
 );
 __decorate(
   [
+    common_1.Post(),
     swagger_1.ApiOperation({
       summary: "add stock",
     }),
     swagger_1.ApiOkResponse({ description: "Added" }),
     swagger_1.ApiBearerAuth(),
+    common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
     common_1.UseGuards(app_guard_1.IsAdmin),
     swagger_1.ApiHeader({ name: "Authorization" }),
-    common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
-    common_1.Post(),
     __param(0, common_1.Body()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [stock_dto_1.stockInfo]),
@@ -135,16 +138,16 @@ __decorate(
 );
 __decorate(
   [
+    common_1.Put(":id"),
     swagger_1.ApiOperation({
       summary: "update stock",
     }),
     swagger_1.ApiOkResponse({ description: "Updated" }),
     swagger_1.ApiBearerAuth(),
     swagger_1.ApiHeader({ name: "Authorization" }),
-    common_1.UseGuards(app_guard_1.IsAdmin),
     common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
+    common_1.UseGuards(app_guard_1.IsAdmin),
     common_1.UseGuards(app_guard_1.IsObjectId),
-    common_1.Put(":id"),
     __param(0, common_1.Param("id")),
     __param(1, common_1.Body()),
     __metadata("design:type", Function),

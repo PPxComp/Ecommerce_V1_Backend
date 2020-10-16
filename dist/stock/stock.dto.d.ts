@@ -9,3 +9,7 @@ export declare class getAll {
   catagory: string;
   start: number;
 }
+export declare class getStockDto {
+  data: stockInfo[];
+  count: number;
+}

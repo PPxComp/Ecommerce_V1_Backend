@@ -52,7 +52,7 @@ let MeController = class MeController {
 };
 __decorate(
   [
-    common_1.Get("me"),
+    common_1.Get("mexxxx"),
     swagger_1.ApiOperation({
       summary: "Get My Info",
     }),

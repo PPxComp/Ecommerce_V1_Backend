@@ -46,6 +46,14 @@ let UserController = class UserController {
     const result = await this.userService.resister(data);
     return result;
   }
+  async getMyInfo(req) {
+    const {
+      isAdmin,
+      username,
+      refreshToken,
+    } = await this.userService.findUserByUsername(req.user.username);
+    return { isAdmin, username, refreshToken };
+  }
   async getUserInfo(name) {
     const { username, isAdmin } = await this.userService.findUserByUsername(
       name
@@ -74,6 +82,25 @@ __decorate(
   ],
   UserController.prototype,
   "register",
+  null
+);
+__decorate(
+  [
+    common_1.Get("me"),
+    swagger_1.ApiOperation({
+      summary: "Get My Info",
+    }),
+    swagger_1.ApiBearerAuth(),
+    swagger_1.ApiHeader({ name: "Authorization" }),
+    swagger_1.ApiOkResponse({ description: "OK" }),
+    common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
+    __param(0, common_1.Req()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise),
+  ],
+  UserController.prototype,
+  "getMyInfo",
   null
 );
 __decorate(

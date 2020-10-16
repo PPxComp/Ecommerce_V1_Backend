@@ -4,6 +4,13 @@ export declare class UserController {
   private userService;
   constructor(userService: UserService);
   register(data: userRegister): Promise<any>;
+  getMyInfo(
+    req: any
+  ): Promise<{
+    isAdmin: boolean;
+    username: string;
+    refreshToken: string;
+  }>;
   getUserInfo(
     name: string
   ): Promise<{

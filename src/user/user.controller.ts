@@ -37,6 +37,23 @@ export class UserController {
     return result;
   }
 
+  @Get("me")
+  @ApiOperation({
+    summary: "Get My Info",
+  })
+  @ApiBearerAuth()
+  @ApiHeader({ name: "Authorization" })
+  @ApiOkResponse({ description: "OK" })
+  @UseGuards(JwtAuthGuard)
+  async getMyInfo(@Req() req) {
+    const {
+      isAdmin,
+      username,
+      refreshToken,
+    } = await this.userService.findUserByUsername(req.user.username);
+    return { isAdmin, username, refreshToken };
+  }
+
   @Get("/info/:username")
   @ApiOperation({
     summary: "Get User Info",

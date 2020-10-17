@@ -92,7 +92,7 @@ __decorate(
 exports.getAll = getAll;
 class getStockDto {}
 __decorate(
-  [swagger_1.ApiProperty(), __metadata("design:type", Number)],
+  [swagger_1.ApiProperty(), __metadata("design:type", Array)],
   getStockDto.prototype,
   "data",
   void 0

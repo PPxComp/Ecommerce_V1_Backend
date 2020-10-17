@@ -44,10 +44,15 @@ let StockController = class StockController {
     this.stockService = stockService;
   }
   async getAllStock(data) {
-    return this.stockService.getAll(data.catagory, data.start);
+    const catagory = data.catagory ? data.catagory.split(",") : [];
+    return this.stockService.getAll(catagory, data.start);
   }
   async getStockById(id) {
     return this.stockService.getStockById(id);
+  }
+  async getAdminStock(data) {
+    const catagory = data.catagory ? data.catagory.split(",") : [];
+    return this.stockService.getAdminStockAll(catagory, data.start);
   }
   async deleteStock(id) {
     return this.stockService.deleteStockById(id);
@@ -97,11 +102,34 @@ __decorate(
 );
 __decorate(
   [
+    common_1.Get("admin/stock"),
+    swagger_1.ApiOperation({
+      summary: "Get all  Admin stock",
+    }),
+    swagger_1.ApiOkResponse({
+      description: "OK",
+      type: stock_dto_1.getStockDto,
+    }),
+    swagger_1.ApiBearerAuth(),
+    common_1.UseGuards(app_guard_1.IsAdmin),
+    common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
+    swagger_1.ApiHeader({ name: "Authorization" }),
+    __param(0, common_1.Query()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [stock_dto_1.getAll]),
+    __metadata("design:returntype", Promise),
+  ],
+  StockController.prototype,
+  "getAdminStock",
+  null
+);
+__decorate(
+  [
     common_1.Delete(":id"),
     swagger_1.ApiOperation({
       summary: "delete stock",
     }),
-    swagger_1.ApiOkResponse({ description: "Deleted" }),
+    swagger_1.ApiCreatedResponse({ description: "Deleted" }),
     swagger_1.ApiBearerAuth(),
     common_1.UseGuards(app_guard_1.IsAdmin),
     common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
@@ -122,7 +150,7 @@ __decorate(
     swagger_1.ApiOperation({
       summary: "add stock",
     }),
-    swagger_1.ApiOkResponse({ description: "Added" }),
+    swagger_1.ApiCreatedResponse({ description: "Added" }),
     swagger_1.ApiBearerAuth(),
     common_1.UseGuards(app_guard_1.IsAdmin),
     common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),

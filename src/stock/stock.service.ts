@@ -8,21 +8,45 @@ const LIMIT: number = 10;
 export class StockService {
   constructor(@InjectModel("stocks") private stockModel: Model<any>) {}
 
-  async getAll(catagory: string, at: number) {
+  async getAll(catagory: string[], at: number) {
     let data: stockInfo[] = [];
     let count: number = 0;
-    if (catagory) {
+    if (catagory.length > 0) {
       data = await this.stockModel
-        .find({ catagory: { $all: [catagory] } })
+        .find({ catagory: { $all: catagory }, count: { $gt: 0 } })
+        .sort({ _id: -1 });
+    } else {
+      data = await this.stockModel
+        .find({ count: { $gt: 0 } })
+        .sort({ _id: -1 });
+    }
+    count = data.length;
+    const min = at < count ? at : count;
+    const max = min + LIMIT < count ? min + LIMIT : count;
+    let result: stockInfo[] = [];
+
+    for (let i = 0; i < max; i++) {
+      result.push(data[i]);
+    }
+    return { data: result, count };
+  }
+
+  async getAdminStockAll(catagory: string[], at: number) {
+    let data: stockInfo[] = [];
+    let count: number = 0;
+    if (catagory.length > 0) {
+      data = await this.stockModel
+        .find({ catagory: { $all: catagory } })
         .sort({ _id: -1 });
     } else {
       data = await this.stockModel.find({}).sort({ _id: -1 });
     }
     count = data.length;
     const min = at < count ? at : count;
-    const max = min + 10 < count ? min + 10 : count;
+    const max = min + LIMIT < count ? min + LIMIT : count;
     let result: stockInfo[] = [];
-    for (let i = min; i < max; i++) {
+
+    for (let i = 0; i < max; i++) {
       result.push(data[i]);
     }
     return { data: result, count };

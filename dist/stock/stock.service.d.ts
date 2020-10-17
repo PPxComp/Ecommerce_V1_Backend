@@ -4,7 +4,14 @@ export declare class StockService {
   private stockModel;
   constructor(stockModel: Model<any>);
   getAll(
-    catagory: string,
+    catagory: string[],
+    at: number
+  ): Promise<{
+    data: stockInfo[];
+    count: number;
+  }>;
+  getAdminStockAll(
+    catagory: string[],
     at: number
   ): Promise<{
     data: stockInfo[];

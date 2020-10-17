@@ -15,6 +15,7 @@ import {
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
+  ApiCreatedResponse,
   ApiHeader,
   ApiNotFoundResponse,
   ApiOkResponse,
@@ -22,6 +23,7 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from "@nestjs/swagger";
+import { log } from "console";
 import { IsAdmin, IsObjectId } from "src/app.guard";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { getAll, getStockDto, stockInfo } from "./stock.dto";
@@ -42,7 +44,8 @@ export class StockController {
   })
   @ApiOkResponse({ description: "OK", type: getStockDto })
   async getAllStock(@Query() data: getAll) {
-    return this.stockService.getAll(data.catagory, data.start);
+    const catagory = data.catagory ? data.catagory.split(",") : [];
+    return this.stockService.getAll(catagory, data.start);
   }
 
   @Get(":id")
@@ -58,12 +61,25 @@ export class StockController {
   ///////////////////////////////////////////////
   ///////     only add min and need jwt   ///////
   ///////////////////////////////////////////////
+  @Get("admin/stock")
+  @ApiOperation({
+    summary: "Get all  Admin stock",
+  })
+  @ApiOkResponse({ description: "OK", type: getStockDto })
+  @ApiBearerAuth()
+  @UseGuards(IsAdmin)
+  @UseGuards(JwtAuthGuard)
+  @ApiHeader({ name: "Authorization" })
+  async getAdminStock(@Query() data: getAll) {
+    const catagory = data.catagory ? data.catagory.split(",") : [];
+    return this.stockService.getAdminStockAll(catagory, data.start);
+  }
 
   @Delete(":id")
   @ApiOperation({
     summary: "delete stock",
   })
-  @ApiOkResponse({ description: "Deleted" })
+  @ApiCreatedResponse({ description: "Deleted" })
   @ApiBearerAuth()
   @UseGuards(IsAdmin)
   @UseGuards(JwtAuthGuard)
@@ -77,7 +93,7 @@ export class StockController {
   @ApiOperation({
     summary: "add stock",
   })
-  @ApiOkResponse({ description: "Added" })
+  @ApiCreatedResponse({ description: "Added" })
   @ApiBearerAuth()
   @UseGuards(IsAdmin)
   @UseGuards(JwtAuthGuard)

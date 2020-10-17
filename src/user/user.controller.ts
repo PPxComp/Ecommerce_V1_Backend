@@ -29,7 +29,7 @@ export class UserController {
   @ApiOperation({
     summary: "Register ",
   })
-  @ApiOkResponse({ description: "Registered" })
+  @ApiCreatedResponse({ description: "Registered" })
   @ApiBadRequestResponse({ description: "already have this user !" })
   @Post()
   async register(@Body() data: userRegister) {

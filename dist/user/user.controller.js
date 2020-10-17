@@ -70,7 +70,7 @@ __decorate(
     swagger_1.ApiOperation({
       summary: "Register ",
     }),
-    swagger_1.ApiOkResponse({ description: "Registered" }),
+    swagger_1.ApiCreatedResponse({ description: "Registered" }),
     swagger_1.ApiBadRequestResponse({
       description: "already have this user !",
     }),

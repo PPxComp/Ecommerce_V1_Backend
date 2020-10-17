@@ -55,7 +55,8 @@ let StockService = class StockService {
     }
     count = data.length;
     const min = at < count ? at : count;
-    const max = min + LIMIT < count ? min + LIMIT : count;
+    let max = min + LIMIT;
+    max = max < count ? max : count;
     let result = [];
     for (let i = min; i < max; i++) {
       result.push(data[i]);
@@ -74,7 +75,8 @@ let StockService = class StockService {
     }
     count = data.length;
     const min = at < count ? at : count;
-    const max = min + LIMIT < count ? min + LIMIT : count;
+    let max = min + LIMIT;
+    max = max < count ? max : count;
     let result = [];
     for (let i = min; i < max; i++) {
       data[i]._doc.id = data[i]._id;

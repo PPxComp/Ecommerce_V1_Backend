@@ -20,5 +20,14 @@ export declare class StockService {
   getStockById(id: string): Promise<any>;
   createStock(data: stockInfo): Promise<any>;
   updateStock(data: stockInfo, id: string): Promise<any>;
-  deleteStockById(id: string): Promise<any>;
+  deleteStockById(
+    data: string[]
+  ): Promise<
+    {
+      ok?: number;
+      n?: number;
+    } & {
+      deletedCount?: number;
+    }
+  >;
 }

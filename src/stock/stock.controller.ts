@@ -26,7 +26,7 @@ import {
 import { log } from "console";
 import { IsAdmin, IsObjectId } from "src/app.guard";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
-import { getAll, getStockDto, stockInfo } from "./stock.dto";
+import { deleteDto, getAll, getStockDto, stockInfo } from "./stock.dto";
 
 import { StockService } from "./stock.service";
 
@@ -77,7 +77,7 @@ export class StockController {
     return this.stockService.getAdminStockAll(catagory, at);
   }
 
-  @Delete(":id")
+  @Delete("")
   @ApiOperation({
     summary: "delete stock",
   })
@@ -86,9 +86,8 @@ export class StockController {
   @UseGuards(IsAdmin)
   @UseGuards(JwtAuthGuard)
   @ApiHeader({ name: "Authorization" })
-  @UseGuards(IsObjectId)
-  async deleteStock(@Param("id") id: string): Promise<stockInfo> {
-    return this.stockService.deleteStockById(id);
+  async deleteStock(@Body() data: deleteDto) {
+    return this.stockService.deleteStockById(data.data);
   }
 
   @Post()

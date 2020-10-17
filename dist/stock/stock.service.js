@@ -36,6 +36,7 @@ exports.StockService = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
+const mongodb_1 = require("mongodb");
 const LIMIT = 12;
 let StockService = class StockService {
   constructor(stockModel) {
@@ -102,8 +103,11 @@ let StockService = class StockService {
     if (result) return result;
     throw new common_1.NotFoundException("Not found this stock");
   }
-  async deleteStockById(id) {
-    const result = await this.stockModel.findByIdAndRemove(id);
+  async deleteStockById(data) {
+    const id = data.map((element) => {
+      return new mongodb_1.ObjectId(element);
+    });
+    const result = await this.stockModel.deleteMany({ _id: { $in: id } });
     if (result) return result;
     throw new common_1.NotFoundException("Not found this stock");
   }

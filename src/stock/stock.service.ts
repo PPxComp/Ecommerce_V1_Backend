@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import { stockInfo } from "./stock.dto";
+import { ObjectId } from "mongodb";
+import { deleteDto, stockInfo } from "./stock.dto";
 
 const LIMIT: number = 12;
 @Injectable()
@@ -80,8 +81,11 @@ export class StockService {
     throw new NotFoundException("Not found this stock");
   }
 
-  async deleteStockById(id: string) {
-    const result = await this.stockModel.findByIdAndRemove(id);
+  async deleteStockById(data: string[]) {
+    const id: ObjectId[] = data.map((element) => {
+      return new ObjectId(element);
+    });
+    const result = await this.stockModel.deleteMany({ _id: { $in: id } });
     if (result) return result;
     throw new NotFoundException("Not found this stock");
   }

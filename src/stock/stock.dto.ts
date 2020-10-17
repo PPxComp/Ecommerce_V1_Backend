@@ -1,4 +1,3 @@
-import { Prop } from "@nestjs/mongoose";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import {
   IsEmail,
@@ -8,8 +7,11 @@ import {
   IsString,
 } from "class-validator";
 
+import { ObjectId } from "mongodb";
+
 export class stockInfo {
-  _id: String;
+  _id: ObjectId;
+
   id: String;
 
   @ApiProperty()
@@ -41,6 +43,10 @@ export class getAll {
   start: string;
 }
 
+export class deleteDto {
+  @ApiProperty()
+  data: string[];
+}
 export class getStockDto {
   @ApiProperty()
   data: stockInfo[];

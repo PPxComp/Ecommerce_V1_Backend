@@ -25,7 +25,7 @@ var __metadata =
       return Reflect.metadata(k, v);
   };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getStockDto = exports.getAll = exports.stockInfo = void 0;
+exports.getStockDto = exports.deleteDto = exports.getAll = exports.stockInfo = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 class stockInfo {}
@@ -94,6 +94,14 @@ __decorate(
   void 0
 );
 exports.getAll = getAll;
+class deleteDto {}
+__decorate(
+  [swagger_1.ApiProperty(), __metadata("design:type", Array)],
+  deleteDto.prototype,
+  "data",
+  void 0
+);
+exports.deleteDto = deleteDto;
 class getStockDto {}
 __decorate(
   [swagger_1.ApiProperty(), __metadata("design:type", Array)],

@@ -86,8 +86,8 @@ __decorate(
 __decorate(
   [
     swagger_1.ApiProperty(),
-    class_validator_1.IsNotEmpty(),
-    __metadata("design:type", Number),
+    class_validator_1.IsString(),
+    __metadata("design:type", String),
   ],
   getAll.prototype,
   "start",

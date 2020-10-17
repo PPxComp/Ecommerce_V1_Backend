@@ -37,8 +37,8 @@ export class getAll {
   catagory: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  start: number;
+  @IsString()
+  start: string;
 }
 
 export class getStockDto {

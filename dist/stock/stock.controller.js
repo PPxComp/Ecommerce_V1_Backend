@@ -45,14 +45,16 @@ let StockController = class StockController {
   }
   async getAllStock(data) {
     const catagory = data.catagory ? data.catagory.split(",") : [];
-    return this.stockService.getAll(catagory, data.start);
+    const at = parseInt(data.start);
+    return this.stockService.getAll(catagory, at);
   }
   async getStockById(id) {
     return this.stockService.getStockById(id);
   }
   async getAdminStock(data) {
     const catagory = data.catagory ? data.catagory.split(",") : [];
-    return this.stockService.getAdminStockAll(catagory, data.start);
+    const at = parseInt(data.start);
+    return this.stockService.getAdminStockAll(catagory, at);
   }
   async deleteStock(id) {
     return this.stockService.deleteStockById(id);

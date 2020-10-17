@@ -22,7 +22,9 @@ export class StockService {
     }
     count = data.length;
     const min = at < count ? at : count;
-    let max = min + LIMIT;
+
+    let max: number = min + LIMIT;
+
     max = max < count ? max : count;
     let result: stockInfo[] = [];
 

@@ -9,7 +9,7 @@ export declare class stockInfo {
 }
 export declare class getAll {
   catagory: string;
-  start: number;
+  start: string;
 }
 export declare class getStockDto {
   data: stockInfo[];

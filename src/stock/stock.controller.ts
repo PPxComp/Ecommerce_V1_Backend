@@ -45,7 +45,8 @@ export class StockController {
   @ApiOkResponse({ description: "OK", type: getStockDto })
   async getAllStock(@Query() data: getAll) {
     const catagory = data.catagory ? data.catagory.split(",") : [];
-    return this.stockService.getAll(catagory, data.start);
+    const at: number = parseInt(data.start);
+    return this.stockService.getAll(catagory, at);
   }
 
   @Get(":id")
@@ -72,7 +73,8 @@ export class StockController {
   @ApiHeader({ name: "Authorization" })
   async getAdminStock(@Query() data: getAll) {
     const catagory = data.catagory ? data.catagory.split(",") : [];
-    return this.stockService.getAdminStockAll(catagory, data.start);
+    const at: number = parseInt(data.start);
+    return this.stockService.getAdminStockAll(catagory, at);
   }
 
   @Delete(":id")

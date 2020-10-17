@@ -3,7 +3,7 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { stockInfo } from "./stock.dto";
 
-const LIMIT: number = 10;
+const LIMIT: number = 12;
 @Injectable()
 export class StockService {
   constructor(@InjectModel("stocks") private stockModel: Model<any>) {}
@@ -25,7 +25,7 @@ export class StockService {
     const max = min + LIMIT < count ? min + LIMIT : count;
     let result: stockInfo[] = [];
 
-    for (let i = 0; i < max; i++) {
+    for (let i = min; i < max; i++) {
       result.push(data[i]);
     }
     return { data: result, count };
@@ -46,7 +46,7 @@ export class StockService {
     const max = min + LIMIT < count ? min + LIMIT : count;
     let result = [];
 
-    for (let i = 0; i < max; i++) {
+    for (let i = min; i < max; i++) {
       data[i]._doc.id = data[i]._id;
       const tmp = { ...data[i] };
 

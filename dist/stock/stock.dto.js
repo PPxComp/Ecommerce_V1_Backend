@@ -60,9 +60,13 @@ __decorate(
   void 0
 );
 __decorate(
-  [swagger_1.ApiProperty(), __metadata("design:type", String)],
+  [
+    swagger_1.ApiProperty(),
+    class_validator_1.IsString(),
+    __metadata("design:type", String),
+  ],
   stockInfo.prototype,
-  "img",
+  "description",
   void 0
 );
 __decorate(

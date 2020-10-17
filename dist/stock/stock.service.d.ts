@@ -14,7 +14,7 @@ export declare class StockService {
     catagory: string[],
     at: number
   ): Promise<{
-    data: stockInfo[];
+    data: any[];
     count: number;
   }>;
   getStockById(id: string): Promise<any>;

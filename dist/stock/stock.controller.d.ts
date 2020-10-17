@@ -13,7 +13,7 @@ export declare class StockController {
   getAdminStock(
     data: getAll
   ): Promise<{
-    data: stockInfo[];
+    data: any[];
     count: number;
   }>;
   deleteStock(id: string): Promise<stockInfo>;

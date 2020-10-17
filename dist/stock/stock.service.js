@@ -68,7 +68,7 @@ let StockService = class StockService {
     if (catagory.length > 0) {
       data = await this.stockModel
         .find({ catagory: { $all: catagory } })
-        .sort({ _id: -1 });
+        .sort({ id: -1 });
     } else {
       data = await this.stockModel.find({}).sort({ _id: -1 });
     }
@@ -77,7 +77,9 @@ let StockService = class StockService {
     const max = min + LIMIT < count ? min + LIMIT : count;
     let result = [];
     for (let i = 0; i < max; i++) {
-      result.push(data[i]);
+      data[i]._doc.id = data[i]._id;
+      const tmp = Object.assign({}, data[i]);
+      result.push(Object.assign({ id: data[i].id }, tmp._doc));
     }
     return { data: result, count };
   }

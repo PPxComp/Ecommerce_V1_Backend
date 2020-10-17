@@ -32,23 +32,27 @@ export class StockService {
   }
 
   async getAdminStockAll(catagory: string[], at: number) {
-    let data: stockInfo[] = [];
+    let data = [];
     let count: number = 0;
     if (catagory.length > 0) {
       data = await this.stockModel
         .find({ catagory: { $all: catagory } })
-        .sort({ _id: -1 });
+        .sort({ id: -1 });
     } else {
       data = await this.stockModel.find({}).sort({ _id: -1 });
     }
     count = data.length;
     const min = at < count ? at : count;
     const max = min + LIMIT < count ? min + LIMIT : count;
-    let result: stockInfo[] = [];
+    let result = [];
 
     for (let i = 0; i < max; i++) {
-      result.push(data[i]);
+      data[i]._doc.id = data[i]._id;
+      const tmp = { ...data[i] };
+
+      result.push({ id: data[i].id, ...tmp._doc });
     }
+
     return { data: result, count };
   }
 

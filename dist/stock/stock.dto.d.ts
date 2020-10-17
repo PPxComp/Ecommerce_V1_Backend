@@ -1,8 +1,10 @@
 export declare class stockInfo {
+  _id: String;
+  id: String;
   name: String;
   price: number;
   count: number;
-  img: String;
+  description: String;
   catagory?: String[];
 }
 export declare class getAll {

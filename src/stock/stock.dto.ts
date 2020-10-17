@@ -9,6 +9,9 @@ import {
 } from "class-validator";
 
 export class stockInfo {
+  _id: String;
+  id: String;
+
   @ApiProperty()
   @IsString()
   name: String;
@@ -22,7 +25,8 @@ export class stockInfo {
   count: number;
 
   @ApiProperty()
-  img: String;
+  @IsString()
+  description: String;
 
   @ApiProperty()
   catagory?: String[];

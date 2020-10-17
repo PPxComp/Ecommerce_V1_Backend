@@ -36,7 +36,7 @@ exports.StockService = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
-const LIMIT = 10;
+const LIMIT = 12;
 let StockService = class StockService {
   constructor(stockModel) {
     this.stockModel = stockModel;
@@ -57,7 +57,7 @@ let StockService = class StockService {
     const min = at < count ? at : count;
     const max = min + LIMIT < count ? min + LIMIT : count;
     let result = [];
-    for (let i = 0; i < max; i++) {
+    for (let i = min; i < max; i++) {
       result.push(data[i]);
     }
     return { data: result, count };
@@ -76,7 +76,7 @@ let StockService = class StockService {
     const min = at < count ? at : count;
     const max = min + LIMIT < count ? min + LIMIT : count;
     let result = [];
-    for (let i = 0; i < max; i++) {
+    for (let i = min; i < max; i++) {
       data[i]._doc.id = data[i]._id;
       const tmp = Object.assign({}, data[i]);
       result.push(Object.assign({ id: data[i].id }, tmp._doc));

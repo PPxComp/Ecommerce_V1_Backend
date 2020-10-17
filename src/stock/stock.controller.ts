@@ -65,8 +65,8 @@ export class StockController {
   })
   @ApiOkResponse({ description: "Deleted" })
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
   @UseGuards(IsAdmin)
+  @UseGuards(JwtAuthGuard)
   @ApiHeader({ name: "Authorization" })
   @UseGuards(IsObjectId)
   async deleteStock(@Param("id") id: string): Promise<stockInfo> {
@@ -79,8 +79,8 @@ export class StockController {
   })
   @ApiOkResponse({ description: "Added" })
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
   @UseGuards(IsAdmin)
+  @UseGuards(JwtAuthGuard)
   @ApiHeader({ name: "Authorization" })
   async addStock(@Body() data: stockInfo) {
     return this.stockService.createStock(data);
@@ -93,8 +93,8 @@ export class StockController {
   @ApiOkResponse({ description: "Updated" })
   @ApiBearerAuth()
   @ApiHeader({ name: "Authorization" })
-  @UseGuards(JwtAuthGuard)
   @UseGuards(IsAdmin)
+  @UseGuards(JwtAuthGuard)
   @UseGuards(IsObjectId)
   async updateStock(@Param("id") id: string, @Body() data: stockInfo) {
     return this.stockService.updateStock(data, id);

@@ -13,7 +13,7 @@ async function bootstrap() {
   const development = configService.get("development");
   const options = new swagger_1.DocumentBuilder()
     .setTitle("Swagger API")
-    .setDescription("This is swagger api for Free_01")
+    .setDescription("This is swagger api for Free_0111111 s")
     .setVersion("1.0")
     .addBearerAuth({
       type: "http",

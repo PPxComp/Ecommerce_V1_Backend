@@ -105,7 +105,7 @@ export class AuthController {
       }
     }
 
-    res.clearCookie(REFRESH_TOKEN_COOKIE_NAME, this.getRefreshCookieOpt());
+    res.clearCookie(REFRESH_TOKEN_COOKIE_NAME);
     res.status(201).send("Refresh Token revoked");
   }
 }

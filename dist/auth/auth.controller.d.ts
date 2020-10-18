@@ -7,9 +7,8 @@ export declare class AuthController {
   private configService;
   constructor(authService: AuthService, configService: ConfigService);
   getJwt(data: userLogin, res: Response): Promise<Response<any>>;
-  private getRefreshCookieOpt;
-  private setRefreshCookie;
-  private getUserFromRefreshCookie;
   refreshToken(res: Response, req: Request): Promise<void>;
   clearRefreshToken(res: Response, req: Request): Promise<void>;
+  private setRefreshCookie;
+  private getUserFromRefreshCookie;
 }

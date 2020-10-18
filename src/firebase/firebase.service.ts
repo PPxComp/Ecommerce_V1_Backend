@@ -18,7 +18,9 @@ function parseServiceAccount(jsonOrBase64: string): any {
 @Injectable()
 export class FirebaseService {
   bucket: Bucket;
-
+  //-------------------------------------------------------------------------//
+  // TODO : Contructor
+  //-------------------------------------------------------------------------//
   constructor(configService: ConfigService) {
     const serviceAccount = configService.get<string>("firebase.serviceAccount"); //path for json file
     const storageBucketName = configService.get<string>(
@@ -34,10 +36,16 @@ export class FirebaseService {
     this.bucket = admin.storage().bucket();
   }
 
+  //-------------------------------------------------------------------------//
+  // TODO : To Generate Token
+  //-------------------------------------------------------------------------//
   async createToken(id: string): Promise<string> {
     return await admin.auth().createCustomToken(id);
   }
 
+  //-------------------------------------------------------------------------//
+  // TODO : To check is image avaliable in firebase ?
+  //-------------------------------------------------------------------------//
   private stockPicture(id: string): File {
     return this.bucket.file(`img/${id}`);
   }

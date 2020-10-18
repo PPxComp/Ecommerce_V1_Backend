@@ -26,6 +26,9 @@ import { UserService } from "./user.service";
 export class UserController {
   constructor(private userService: UserService) {}
 
+  //-------------------------------------------------------------------------//
+  // TODO : Register Api
+  //-------------------------------------------------------------------------//
   @ApiOperation({
     summary: "Register ",
   })
@@ -37,6 +40,9 @@ export class UserController {
     return result;
   }
 
+  //-------------------------------------------------------------------------//
+  // TODO : Get User Info by his jwt
+  //-------------------------------------------------------------------------//
   @Get("me")
   @ApiOperation({
     summary: "Get My Info",
@@ -54,6 +60,9 @@ export class UserController {
     return { isAdmin, username, refreshToken };
   }
 
+  //-------------------------------------------------------------------------//
+  // TODO : Get another user info by username
+  //-------------------------------------------------------------------------//
   @Get("/info/:username")
   @ApiOperation({
     summary: "Get User Info",
@@ -66,6 +75,9 @@ export class UserController {
     return { username, isAdmin };
   }
 
+  //-------------------------------------------------------------------------//
+  // TODO : Give admin to user using usernaem
+  //-------------------------------------------------------------------------//
   @ApiOperation({
     summary: "Give admin ",
   })

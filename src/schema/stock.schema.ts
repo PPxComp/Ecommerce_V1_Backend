@@ -1,5 +1,9 @@
 import { Schema } from "mongoose";
 
+//-------------------------------------------------------------------------//
+// TODO : Userschema
+//-------------------------------------------------------------------------//
+
 export const UserSchema = new Schema({
   username: { required: true, type: String },
   password: { required: true, type: String },
@@ -7,6 +11,9 @@ export const UserSchema = new Schema({
   refreshToken: { required: false, type: String },
 });
 
+//-------------------------------------------------------------------------//
+// TODO : StockSchma
+//-------------------------------------------------------------------------//
 export const StockSchema = new Schema(
   {
     name: { required: true, type: String },

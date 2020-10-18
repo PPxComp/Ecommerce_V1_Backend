@@ -9,7 +9,9 @@ const saltRounds = 10;
 @Injectable()
 export class UserService {
   constructor(@InjectModel("users") private userModel: Model<any>) {}
-
+  //-------------------------------------------------------------------------//
+  // TODO : Regiter by username and password encode with brcypt
+  //-------------------------------------------------------------------------//
   async resister(data: userRegister) {
     const hash = await bcrypt.hash(data.password, 10);
     const createUser = { username: data.username, password: hash };
@@ -21,10 +23,27 @@ export class UserService {
     }
   }
 
+  //-------------------------------------------------------------------------//
+  // TODO : give admin
+  //-------------------------------------------------------------------------//
+  async giveAdmin(username: string): Promise<userInfo> {
+    return this.userModel.findOneAndUpdate(
+      { username },
+      { isAdmin: true },
+      { new: true }
+    );
+  }
+
+  //-------------------------------------------------------------------------//
+  // TODO : find user by username
+  //-------------------------------------------------------------------------//
   async findUserByUsername(username: string): Promise<userInfo> {
     return this.userModel.findOne({ username });
   }
 
+  //-------------------------------------------------------------------------//
+  // TODO : finduser And update user token
+  //-------------------------------------------------------------------------//
   async findUserAndUpdateToken(
     username: string,
     refreshToken: string
@@ -36,14 +55,9 @@ export class UserService {
     );
   }
 
-  async giveAdmin(username: string): Promise<userInfo> {
-    return this.userModel.findOneAndUpdate(
-      { username },
-      { isAdmin: true },
-      { new: true }
-    );
-  }
-
+  //-------------------------------------------------------------------------//
+  // TODO : find user by refresh token ( call this function in refreshtoken api)
+  //-------------------------------------------------------------------------//
   async findUserByRefreshToken(refreshToken: string): Promise<userInfo> {
     return this.userModel.findOne({ refreshToken });
   }

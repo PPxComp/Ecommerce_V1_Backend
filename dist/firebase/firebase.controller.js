@@ -77,7 +77,6 @@ __decorate(
       summary: "Check is image exist",
     }),
     swagger_1.ApiOkResponse({ description: "OK" }),
-    common_1.UseGuards(app_guard_1.IsObjectId),
     common_1.Get(":id"),
     __param(0, common_1.Param("id")),
     __metadata("design:type", Function),

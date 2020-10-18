@@ -52,6 +52,13 @@ let UserService = class UserService {
       return this.userModel.create({ username: data.username, password: hash });
     }
   }
+  async giveAdmin(username) {
+    return this.userModel.findOneAndUpdate(
+      { username },
+      { isAdmin: true },
+      { new: true }
+    );
+  }
   async findUserByUsername(username) {
     return this.userModel.findOne({ username });
   }
@@ -60,13 +67,6 @@ let UserService = class UserService {
       { username },
       { refreshToken },
       { upsert: true, new: true }
-    );
-  }
-  async giveAdmin(username) {
-    return this.userModel.findOneAndUpdate(
-      { username },
-      { isAdmin: true },
-      { new: true }
     );
   }
   async findUserByRefreshToken(refreshToken) {

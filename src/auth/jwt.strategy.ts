@@ -15,6 +15,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       secretOrKey: jwtSecretFromConfig(config),
     });
   }
+
+  //-------------------------------------------------------------------------//
+  // TODO : Pack jwt into req.user
+  //-------------------------------------------------------------------------//
   validate(payload: JwtPayload) {
     return { username: payload.username };
   }

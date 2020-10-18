@@ -38,6 +38,9 @@ import { StockService } from "./stock.service";
 export class StockController {
   constructor(private stockService: StockService) {}
 
+  //-------------------------------------------------------------------------//
+  // TODO : Get All stock api  will return stock that count  > 0
+  //-------------------------------------------------------------------------//
   @Get()
   @ApiOperation({
     summary: "Get all stock",
@@ -49,6 +52,9 @@ export class StockController {
     return this.stockService.getAll(catagory, at);
   }
 
+  //-------------------------------------------------------------------------//
+  // TODO : Get  stock by stock id
+  //-------------------------------------------------------------------------//
   @Get(":id")
   @ApiOperation({
     summary: "Get stock by id",
@@ -59,9 +65,20 @@ export class StockController {
     return this.stockService.getStockById(id);
   }
 
-  ///////////////////////////////////////////////
-  ///////     only add min and need jwt   ///////
-  ///////////////////////////////////////////////
+  /*-------------------------------------------------------------------------//
+  |                                                                           |
+  |                                IMPORTANT                                  |
+  |---------------------------------------------------------------------------|
+  |                 NOTICE  : ALL these api below reuired JWT  
+  |                                                                           |
+  |                                                                           |
+  |                                                                           |
+  ---------------------------------------------------------------------------*/
+
+  //-------------------------------------------------------------------------//
+  // TODO : get stock for admin {will return stock that count >=0 }
+  // Required : Admin Permission
+  //-------------------------------------------------------------------------//
   @Get("admin/stock")
   @ApiOperation({
     summary: "Get all  Admin stock",
@@ -77,6 +94,10 @@ export class StockController {
     return this.stockService.getAdminStockAll(catagory, at);
   }
 
+  //-------------------------------------------------------------------------//
+  // TODO : Delete stock by id
+  // Required : Admin Permission
+  //-------------------------------------------------------------------------//
   @Delete("")
   @ApiOperation({
     summary: "delete stock",
@@ -89,7 +110,10 @@ export class StockController {
   async deleteStock(@Body() data: deleteDto) {
     return this.stockService.deleteStockById(data.data);
   }
-
+  //-------------------------------------------------------------------------//
+  // TODO : Add stock to shop
+  // Required : Admin Permission
+  //-------------------------------------------------------------------------//
   @Post()
   @ApiOperation({
     summary: "add stock",
@@ -103,6 +127,10 @@ export class StockController {
     return this.stockService.createStock(data);
   }
 
+  //-------------------------------------------------------------------------//
+  // TODO : Update stock by stock id
+  // Required : Admin Permission
+  //-------------------------------------------------------------------------//
   @Put(":id")
   @ApiOperation({
     summary: "update stock",

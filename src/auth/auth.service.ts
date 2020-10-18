@@ -19,6 +19,9 @@ export class AuthService {
     private jwtService: JwtService
   ) {}
 
+  //-------------------------------------------------------------------------//
+  // TODO : return jwt  to another function
+  //-------------------------------------------------------------------------//
   signJwt(payload: JwtPayload): string {
     return this.jwtService.sign(classToPlain(payload), { expiresIn: "1h" });
   }
@@ -32,6 +35,9 @@ export class AuthService {
     }
   }
 
+  //-------------------------------------------------------------------------//
+  // TODO : login with username and check password by bcrypt
+  //-------------------------------------------------------------------------//
   async login(data: userLogin) {
     const user = await this.userService.findUserByUsername(data.username);
 
@@ -49,6 +55,9 @@ export class AuthService {
     throw new NotFoundException("invalid username or password");
   }
 
+  //-------------------------------------------------------------------------//
+  // TODO : generate  Token
+  //-------------------------------------------------------------------------//
   async generateTokensForUser(username: string): Promise<WebappTokensDTO> {
     const jwtToken = this.signJwt({
       username,
@@ -65,6 +74,10 @@ export class AuthService {
     };
   }
 }
+
+//-------------------------------------------------------------------------//
+// TODO : Outpot that send to user when user login
+//-------------------------------------------------------------------------//
 export interface InternalTokenDTO {
   accessToken: string;
 

@@ -4,11 +4,19 @@ import { Model } from "mongoose";
 import { ObjectId } from "mongodb";
 import { deleteDto, stockInfo } from "./stock.dto";
 
+//-------------------------------------------------------------------------//
+// TODO : initialize  LIMIT when get All stock
 const LIMIT: number = 12;
+//-------------------------------------------------------------------------//
+
 @Injectable()
 export class StockService {
   constructor(@InjectModel("stocks") private stockModel: Model<any>) {}
 
+  //-------------------------------------------------------------------------//
+  // TODO : Get stock by catagory if catagory exist and LIMIT : 12
+  //        this function didn't return stock that count > 0
+  //-------------------------------------------------------------------------//
   async getAll(catagory: string[], at: number) {
     let data: stockInfo[] = [];
     let count: number = 0;
@@ -35,6 +43,10 @@ export class StockService {
     return { data: result, count };
   }
 
+  //-------------------------------------------------------------------------//
+  // TODO : Get stock by catagory if catagory exist and LIMIT : 12
+  //        this function return anything in catatogy include stock that count == 0
+  //-------------------------------------------------------------------------//
   async getAdminStockAll(catagory: string[], at: number) {
     let data = [];
     let count: number = 0;
@@ -61,18 +73,29 @@ export class StockService {
     return { data: result, count };
   }
 
+  //-------------------------------------------------------------------------//
+  // TODO : get Stock By Id
+  //-------------------------------------------------------------------------//
   async getStockById(id: string) {
     const result = await this.stockModel.findById(id);
     if (result) return result;
     throw new NotFoundException("Not found this stock");
   }
 
+  //-------------------------------------------------------------------------//
+  // TODO : Create Stock   if not found stock return Notfound exception
+  //-------------------------------------------------------------------------//
   async createStock(data: stockInfo) {
     const result = await this.stockModel.create(data);
     if (result) return result;
     throw new NotFoundException("Not found this stock");
   }
 
+  //-------------------------------------------------------------------------//
+  // TODO : Update stock by id  if not found stock return Notfound exception
+  //-------------------------------------------------------------------------//
+  // NOTE :  push {new : true}  when need to return stock that updated
+  //-------------------------------------------------------------------------//
   async updateStock(data: stockInfo, id: string) {
     const result = await this.stockModel.findByIdAndUpdate(id, data, {
       new: true,
@@ -81,6 +104,10 @@ export class StockService {
     throw new NotFoundException("Not found this stock");
   }
 
+  //-------------------------------------------------------------------------//
+  // TODO : delete Stock by id if not found stock return Notfound exception
+  // NOTE :  push {new : true}  when need to return stock that updated
+  //-------------------------------------------------------------------------//
   async deleteStockById(data: string[]) {
     const id: ObjectId[] = data.map((element) => {
       return new ObjectId(element);

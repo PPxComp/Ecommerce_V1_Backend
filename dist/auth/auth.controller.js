@@ -52,31 +52,6 @@ let AuthController = class AuthController {
     await this.setRefreshCookie(res, result.refreshToken);
     return res.json(result);
   }
-  getRefreshCookieOpt() {
-    const opt = {
-      httpOnly: true,
-    };
-    if (this.configService.get("SECURE_COOKIE") !== "no") {
-      opt.secure = true;
-      opt.sameSite = "none";
-    }
-    return opt;
-  }
-  setRefreshCookie(res, refreshToken) {
-    res.cookie(REFRESH_TOKEN_COOKIE_NAME, refreshToken, {
-      httpOnly: true,
-      path: "/",
-    });
-  }
-  async getUserFromRefreshCookie(req) {
-    const token = req.cookies[REFRESH_TOKEN_COOKIE_NAME];
-    if (!token)
-      throw new common_1.UnauthorizedException("No refresh cookie found");
-    const user = await this.authService.userFromRefreshToken(token);
-    if (!user)
-      throw new common_1.UnauthorizedException("Refresh token revoked");
-    return user;
-  }
   async refreshToken(res, req) {
     const user = await this.getUserFromRefreshCookie(req);
     const result = await this.authService.generateTokensForUser(user);
@@ -95,6 +70,21 @@ let AuthController = class AuthController {
     }
     res.clearCookie(REFRESH_TOKEN_COOKIE_NAME);
     res.status(201).send("Refresh Token revoked");
+  }
+  setRefreshCookie(res, refreshToken) {
+    res.cookie(REFRESH_TOKEN_COOKIE_NAME, refreshToken, {
+      httpOnly: true,
+      path: "/",
+    });
+  }
+  async getUserFromRefreshCookie(req) {
+    const token = req.cookies[REFRESH_TOKEN_COOKIE_NAME];
+    if (!token)
+      throw new common_1.UnauthorizedException("No refresh cookie found");
+    const user = await this.authService.userFromRefreshToken(token);
+    if (!user)
+      throw new common_1.UnauthorizedException("Refresh token revoked");
+    return user;
   }
 };
 __decorate(
@@ -115,17 +105,6 @@ __decorate(
   ],
   AuthController.prototype,
   "getJwt",
-  null
-);
-__decorate(
-  [
-    __param(0, common_1.Req()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise),
-  ],
-  AuthController.prototype,
-  "getUserFromRefreshCookie",
   null
 );
 __decorate(
@@ -157,6 +136,17 @@ __decorate(
   ],
   AuthController.prototype,
   "clearRefreshToken",
+  null
+);
+__decorate(
+  [
+    __param(0, common_1.Req()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise),
+  ],
+  AuthController.prototype,
+  "getUserFromRefreshCookie",
   null
 );
 AuthController = __decorate(

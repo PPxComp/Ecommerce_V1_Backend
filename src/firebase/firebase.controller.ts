@@ -15,6 +15,9 @@ import { FirebaseService } from "./firebase.service";
 export class FirebaseController {
   constructor(private firebaseService: FirebaseService) {}
 
+  //-------------------------------------------------------------------------//
+  // TODO : Get ADmin frebase token
+  //-------------------------------------------------------------------------//
   @ApiOperation({
     summary: "Get Admin firebase token",
   })
@@ -28,11 +31,13 @@ export class FirebaseController {
     return this.firebaseService.createToken(req.user.username);
   }
 
+  //-------------------------------------------------------------------------//
+  // TODO : Check is image exist ?
+  //-------------------------------------------------------------------------//
   @ApiOperation({
     summary: "Check is image exist",
   })
   @ApiOkResponse({ description: "OK" })
-  @UseGuards(IsObjectId)
   @Get(":id")
   async CheckImage(@Param("id") id: string) {
     return this.firebaseService.hasStockPicture(id);

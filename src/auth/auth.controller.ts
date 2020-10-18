@@ -28,11 +28,17 @@ const REFRESH_TOKEN_COOKIE_NAME = "cookie_for_refresh";
 @ApiTags("auth")
 @Controller("auth")
 export class AuthController {
+  //-------------------------------------------------------------------------//
+  // TODO : Contructor
+  //-------------------------------------------------------------------------//
   constructor(
     private authService: AuthService,
     private configService: ConfigService
   ) {}
 
+  //-------------------------------------------------------------------------//
+  // TODO : Login With Username and Password
+  //-------------------------------------------------------------------------//
   @ApiOperation({
     summary: "Login Exchange ticket",
   })
@@ -50,32 +56,9 @@ export class AuthController {
     return res.json(result as InternalTokenDTO);
   }
 
-  private getRefreshCookieOpt(): CookieOptions {
-    const opt = {
-      httpOnly: true,
-    } as CookieOptions;
-    if (this.configService.get<string>("SECURE_COOKIE") !== "no") {
-      opt.secure = true;
-      opt.sameSite = "none";
-    }
-
-    return opt;
-  }
-
-  private setRefreshCookie(res: Response, refreshToken: string) {
-    res.cookie(REFRESH_TOKEN_COOKIE_NAME, refreshToken, {
-      httpOnly: true,
-      path: "/",
-    });
-  }
-  private async getUserFromRefreshCookie(@Req() req: Request): Promise<string> {
-    const token = req.cookies[REFRESH_TOKEN_COOKIE_NAME];
-
-    if (!token) throw new UnauthorizedException("No refresh cookie found");
-    const user = await this.authService.userFromRefreshToken(token);
-    if (!user) throw new UnauthorizedException("Refresh token revoked");
-    return user;
-  }
+  //-------------------------------------------------------------------------//
+  // TODO : Refresh_token
+  //-------------------------------------------------------------------------//
 
   @Post("refresh_token")
   @ApiCreatedResponse({ type: WebappTokensDTO })
@@ -91,6 +74,9 @@ export class AuthController {
     res.json(result);
   }
 
+  //-------------------------------------------------------------------------//
+  // TODO : Logout
+  //-------------------------------------------------------------------------//
   @Post("logout")
   @ApiCreatedResponse({ description: "RefreshToken revoked" })
   async clearRefreshToken(@Res() res: Response, @Req() req: Request) {
@@ -107,5 +93,23 @@ export class AuthController {
 
     res.clearCookie(REFRESH_TOKEN_COOKIE_NAME);
     res.status(201).send("Refresh Token revoked");
+  }
+
+  //-------------------------------------------------------------------------//
+  // TODO : fucntion to manage Cookie
+  //-------------------------------------------------------------------------//
+  private setRefreshCookie(res: Response, refreshToken: string) {
+    res.cookie(REFRESH_TOKEN_COOKIE_NAME, refreshToken, {
+      httpOnly: true,
+      path: "/",
+    });
+  }
+  private async getUserFromRefreshCookie(@Req() req: Request): Promise<string> {
+    const token = req.cookies[REFRESH_TOKEN_COOKIE_NAME];
+
+    if (!token) throw new UnauthorizedException("No refresh cookie found");
+    const user = await this.authService.userFromRefreshToken(token);
+    if (!user) throw new UnauthorizedException("Refresh token revoked");
+    return user;
   }
 }

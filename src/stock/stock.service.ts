@@ -58,19 +58,8 @@ export class StockService {
       data = await this.stockModel.find({}).sort({ _id: -1 });
     }
     count = data.length;
-    const min = at < count ? at : count;
-    let max = min + LIMIT;
-    max = max < count ? max : count;
-    let result = [];
 
-    for (let i = min; i < max; i++) {
-      data[i]._doc.id = data[i]._id;
-      const tmp = { ...data[i] };
-
-      result.push({ id: data[i].id, ...tmp._doc });
-    }
-
-    return { data: result, count };
+    return { data, count };
   }
 
   //-------------------------------------------------------------------------//

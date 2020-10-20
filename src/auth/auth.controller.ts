@@ -20,7 +20,7 @@ import {
 
 import { userInfo, userRegister } from "src/user/user.dto";
 import { JwtPayload, userLogin, WebappTokensDTO } from "./auth.dto";
-import { AuthService, InternalTokenDTO } from "./auth.service";
+import { AuthService } from "./auth.service";
 import { Response, Request, CookieOptions } from "express";
 import { JwtAuthGuard } from "./jwt-auth.guard";
 import { UserService } from "src/user/user.service";
@@ -47,13 +47,13 @@ export class AuthController {
   async getJwt(@Body() data: userLogin, @Res() res: Response) {
     const user: userInfo = await this.authService.login(data);
 
-    const result: InternalTokenDTO = await this.authService.generateTokensForUser(
+    const result: WebappTokensDTO = await this.authService.generateTokensForUser(
       user.username
     );
 
     await this.setRefreshCookie(res, result.refreshToken);
 
-    return res.json(result as InternalTokenDTO);
+    return res.json(result as WebappTokensDTO);
   }
 
   //-------------------------------------------------------------------------//

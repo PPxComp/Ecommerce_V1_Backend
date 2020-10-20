@@ -29,6 +29,7 @@ exports.FirebaseService = void 0;
 const common_1 = require("@nestjs/common");
 const admin = require("firebase-admin");
 const config_1 = require("@nestjs/config");
+const user_service_1 = require("../user/user.service");
 function parseServiceAccount(jsonOrBase64) {
   try {
     return JSON.parse(jsonOrBase64);
@@ -41,7 +42,8 @@ function parseServiceAccount(jsonOrBase64) {
   }
 }
 let FirebaseService = class FirebaseService {
-  constructor(configService) {
+  constructor(configService, userService) {
+    this.userService = userService;
     const serviceAccount = configService.get("firebase.serviceAccount");
     const storageBucketName = configService.get("firebase.storageBucketName");
     console.log("Service account path  : ", serviceAccount);
@@ -52,8 +54,11 @@ let FirebaseService = class FirebaseService {
     });
     this.bucket = admin.storage().bucket();
   }
-  async createToken(id) {
-    return await admin.auth().createCustomToken(id);
+  async createToken(username) {
+    const user = await this.userService.findUserByUsername(username);
+    let role = "user";
+    if (user.isAdmin) role = "admin";
+    return await admin.auth().createCustomToken(role);
   }
   stockPicture(id) {
     return this.bucket.file(`img/${id}`);
@@ -66,7 +71,10 @@ let FirebaseService = class FirebaseService {
 FirebaseService = __decorate(
   [
     common_1.Injectable(),
-    __metadata("design:paramtypes", [config_1.ConfigService]),
+    __metadata("design:paramtypes", [
+      config_1.ConfigService,
+      user_service_1.UserService,
+    ]),
   ],
   FirebaseService
 );

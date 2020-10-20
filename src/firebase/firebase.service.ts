@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import * as admin from "firebase-admin";
 import { Bucket, File } from "@google-cloud/storage";
 import { ConfigService } from "@nestjs/config";
+import { UserService } from "src/user/user.service";
 
 function parseServiceAccount(jsonOrBase64: string): any {
   try {
@@ -21,7 +22,7 @@ export class FirebaseService {
   //-------------------------------------------------------------------------//
   // TODO : Contructor
   //-------------------------------------------------------------------------//
-  constructor(configService: ConfigService) {
+  constructor(configService: ConfigService, private userService: UserService) {
     const serviceAccount = configService.get<string>("firebase.serviceAccount"); //path for json file
     const storageBucketName = configService.get<string>(
       "firebase.storageBucketName"
@@ -39,8 +40,11 @@ export class FirebaseService {
   //-------------------------------------------------------------------------//
   // TODO : To Generate Token
   //-------------------------------------------------------------------------//
-  async createToken(id: string): Promise<string> {
-    return await admin.auth().createCustomToken(id);
+  async createToken(username: string): Promise<string> {
+    const user = await this.userService.findUserByUsername(username);
+    let role = "user";
+    if (user.isAdmin) role = "admin";
+    return await admin.auth().createCustomToken(role);
   }
 
   //-------------------------------------------------------------------------//

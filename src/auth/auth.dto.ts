@@ -21,6 +21,9 @@ export class WebappTokensDTO {
   accessToken: string;
 
   @ApiProperty()
+  firebaseToken: string;
+
+  @ApiProperty()
   refreshToken: string;
 }
 //      firebaseToken: await this.firebaseSerive.createToken(username),

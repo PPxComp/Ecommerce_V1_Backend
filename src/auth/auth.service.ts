@@ -10,13 +10,13 @@ import { UserService } from "src/user/user.service";
 import { JwtPayload, userLogin, WebappTokensDTO } from "./auth.dto";
 const bcrypt = require("bcrypt");
 import { v4 as uuid4 } from "uuid";
-import { ApiProperty } from "@nestjs/swagger";
 import { FirebaseService } from "src/firebase/firebase.service";
 @Injectable()
 export class AuthService {
   constructor(
     @Inject(forwardRef(() => UserService)) private userService: UserService,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private firebaseService: FirebaseService
   ) {}
 
   //-------------------------------------------------------------------------//
@@ -66,20 +66,12 @@ export class AuthService {
     //Invalidate refresh token
     const refreshToken: string = uuid4();
     await this.userService.findUserAndUpdateToken(username, refreshToken);
+    const firebaseToken = await this.firebaseService.createToken(username);
 
     return {
       accessToken: jwtToken,
-
+      firebaseToken,
       refreshToken: refreshToken,
     };
   }
-}
-
-//-------------------------------------------------------------------------//
-// TODO : Outpot that send to user when user login
-//-------------------------------------------------------------------------//
-export interface InternalTokenDTO {
-  accessToken: string;
-
-  refreshToken: string;
 }

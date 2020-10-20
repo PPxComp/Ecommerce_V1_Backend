@@ -68,6 +68,12 @@ __decorate(
 __decorate(
   [swagger_1.ApiProperty(), __metadata("design:type", String)],
   WebappTokensDTO.prototype,
+  "firebaseToken",
+  void 0
+);
+__decorate(
+  [swagger_1.ApiProperty(), __metadata("design:type", String)],
+  WebappTokensDTO.prototype,
   "refreshToken",
   void 0
 );

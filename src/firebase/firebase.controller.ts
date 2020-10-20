@@ -1,6 +1,8 @@
 import { Controller, Get, Param, Req, UseGuards } from "@nestjs/common";
 import {
   ApiBadRequestResponse,
+  ApiBearerAuth,
+  ApiHeader,
   ApiOkResponse,
   ApiOperation,
   ApiTags,
@@ -14,23 +16,6 @@ import { FirebaseService } from "./firebase.service";
 @ApiTags("firebase")
 export class FirebaseController {
   constructor(private firebaseService: FirebaseService) {}
-
-  //-------------------------------------------------------------------------//
-  // TODO : Get ADmin frebase token
-  //-------------------------------------------------------------------------//
-  @ApiOperation({
-    summary: "Get Admin firebase token",
-  })
-  @ApiOkResponse({ description: "OK" })
-  @ApiUnauthorizedResponse({ description: "invalid bearer jwt" })
-  @ApiBadRequestResponse({ description: "User didn't have permission" })
-  @UseGuards(IsAdmin)
-  @UseGuards(JwtAuthGuard)
-  @Get()
-  async getToken(@Req() req) {
-    return this.firebaseService.createToken(req.user.username);
-  }
-
   //-------------------------------------------------------------------------//
   // TODO : Check is image exist ?
   //-------------------------------------------------------------------------//
@@ -42,4 +27,33 @@ export class FirebaseController {
   async CheckImage(@Param("id") id: string) {
     return this.firebaseService.hasStockPicture(id);
   }
+
+  /*-------------------------------------------------------------------------//
+  |                                                                           |
+  |                                IMPORTANT                                  |
+  |---------------------------------------------------------------------------|
+  |                 NOTICE  : All these below required JWT and admin   
+  |                 NOTICE  : All these didn't use now  
+  |                                                                           |
+  |                                                                           |
+  |                                                                           |
+  ---------------------------------------------------------------------------*/
+
+  //-------------------------------------------------------------------------//
+  // TODO : Get ADmin frebase token
+  //-------------------------------------------------------------------------//
+  // @ApiOperation({
+  //   summary: "Get Admin firebase token",
+  // })
+  // @ApiOkResponse({ description: "OK" })
+  // @ApiBearerAuth()
+  // @ApiHeader({ name: "Authorization" })
+  // @ApiUnauthorizedResponse({ description: "invalid bearer jwt" })
+  // @ApiBadRequestResponse({ description: "User didn't have permission" })
+  // @UseGuards(IsAdmin)
+  // @UseGuards(JwtAuthGuard)
+  // @Get()
+  // async getToken(@Req() req) {
+  //   return this.firebaseService.createToken(req.user.username);
+  // }
 }

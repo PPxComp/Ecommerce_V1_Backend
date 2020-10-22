@@ -75,7 +75,13 @@ let StockService = class StockService {
       data = await this.stockModel.find({}).sort({ _id: -1 });
     }
     count = data.length;
-    return { data, count };
+    let result = [];
+    for (let i = 0; i < count; i++) {
+      data[i]._doc.id = data[i]._id;
+      const tmp = Object.assign({}, data[i]);
+      result.push(Object.assign({ id: data[i].id }, tmp._doc));
+    }
+    return { data: result, count };
   }
   async getStockById(id) {
     const result = await this.stockModel.findById(id);

@@ -107,8 +107,9 @@ export class StockController {
   @UseGuards(IsAdmin)
   @UseGuards(JwtAuthGuard)
   @ApiHeader({ name: "Authorization" })
-  async deleteStock(@Body() data: deleteDto) {
-    return this.stockService.deleteStockById(data.data);
+  async deleteStock(@Query("data") data: String) {
+    const input = data.split(",");
+    return this.stockService.deleteStockById(input);
   }
   //-------------------------------------------------------------------------//
   // TODO : Add stock to shop

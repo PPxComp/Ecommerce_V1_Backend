@@ -1,4 +1,4 @@
-import { deleteDto, getAll, stockInfo } from "./stock.dto";
+import { getAll, stockInfo } from "./stock.dto";
 import { StockService } from "./stock.service";
 export declare class StockController {
   private stockService;
@@ -17,7 +17,7 @@ export declare class StockController {
     count: number;
   }>;
   deleteStock(
-    data: deleteDto
+    data: String
   ): Promise<
     {
       ok?: number;

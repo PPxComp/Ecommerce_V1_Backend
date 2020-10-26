@@ -57,7 +57,8 @@ let StockController = class StockController {
     return this.stockService.getAdminStockAll(catagory, at);
   }
   async deleteStock(data) {
-    return this.stockService.deleteStockById(data.data);
+    const input = data.split(",");
+    return this.stockService.deleteStockById(input);
   }
   async addStock(data) {
     return this.stockService.createStock(data);
@@ -136,9 +137,9 @@ __decorate(
     common_1.UseGuards(app_guard_1.IsAdmin),
     common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
     swagger_1.ApiHeader({ name: "Authorization" }),
-    __param(0, common_1.Body()),
+    __param(0, common_1.Query("data")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [stock_dto_1.deleteDto]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise),
   ],
   StockController.prototype,
